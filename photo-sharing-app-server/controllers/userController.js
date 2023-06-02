@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 const { environment } = require("../env");
 
 exports.registerUser = async (req, res) => {
-    console.log(environment);
     try {
       // Get user input
       const { name, email, password } = req.body;
@@ -63,10 +62,8 @@ exports.registerUser = async (req, res) => {
 }
 
 exports.loginUser = async (req, res) => {
-    console.log("body in api: ", req.body);
     // Our login logic starts here
     try {
-      console.log("In try block:::");
       // Get user input
       const { email, password } = req.body;
   

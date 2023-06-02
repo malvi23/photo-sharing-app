@@ -21,14 +21,6 @@ export class RegisterComponent {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    // this.userForm = new FormGroup({
-    //   name: new FormControl('', [Validators.required]),
-    //   email: new FormControl('', [Validators.required, Validators.email]),
-    //   password: new FormControl('', Validators.required),
-    // });
-  }
-
   register(): void {
     if (this.userForm.invalid) {
       return;

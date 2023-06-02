@@ -1,0 +1,55 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="addNewPhotoModal">Add New Photo</h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addPhotoForm" (ngSubmit)="addPhoto()">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            formControlName="title"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            class="form-control"
+            id="description"
+            rows="3"
+            formControlName="description"
+          ></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label"
+            >Default file input example</label
+          >
+          <input
+            class="form-control"
+            type="file"
+            id="image"
+            (change)="onImageSelected($event)"
+            formControlName="image"
+            required
+          />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        Close
+      </button>
+      <button type="submit" class="btn btn-primary" (click)="addPhoto()" data-bs-dismiss="modal">Add Photo</button>
+    </div>
+  </div>
+</div>

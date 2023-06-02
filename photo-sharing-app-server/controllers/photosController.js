@@ -36,11 +36,11 @@ exports.getUserPhotos = (req, res) => {
       const photosWithFiles = await Promise.all(
         photos.map(async (photo) => {
           const photoPath = path.join(__dirname, '../', photo.imageUrl);
-          console.log("photoPath: ",photoPath)
           const readFileAsync = promisify(fs.readFile);
           const fileData = await readFileAsync(photoPath);
           const base64Image = fileData.toString('base64');
           return {
+            id: photo._id,
             title: photo.title,
             description: photo.description,
             base64Image: base64Image,

@@ -44,7 +44,6 @@ export class LoginComponent {
   }
 
   login(): void {
-    console.log("userForm: ",this.userForm.value)
     if (this.userForm.invalid) {
       return;
     }
@@ -54,8 +53,17 @@ export class LoginComponent {
     };
     this.userService.loginUser(data).subscribe({
       next: (loggedInRes: any) => {
+        //storing access token
         let authToken = loggedInRes.data.token;
         this.tokenService.setAuthToken(authToken);
+
+        //storing loggedin user data
+        this.userService.setCurrentUser({
+          name: loggedInRes.data.name,
+          email: loggedInRes.data.email,
+          id: loggedInRes.data._id,
+        });
+
         this.router.navigate(['/photos']).then((_) => false);
       },
       error: (error) => {

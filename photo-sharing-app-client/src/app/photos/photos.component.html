@@ -1,1 +1,45 @@
-<p>photos works!</p>
+<button
+  class="btn btn-primary"
+  (click)="getPhotos()"
+  data-bs-toggle="modal"
+  data-bs-target="#addPhotoModal"
+>
+  Add New Photo
+</button>
+<button class="btn btn-primary" (click)="getPhotos()">Get Photos</button>
+<button class="btn btn-primary" (click)="logout()">Logout</button>
+
+<div class="row" style="display: flex">
+  <div
+    *ngFor="let photo of allPhotos"
+    class="card col-md-3 col-lg-3 col-sm-3"
+    style="width: 18rem; margin: 0 5px"
+    (mouseenter)="photo.showButton = true"
+    (mouseleave)="photo.showButton = false"
+  >
+    <img [src]="photo.blobImage" class="card-img-top" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">{{ photo.title }}</h5>
+      <p class="card-text">
+        {{ photo.description }}
+      </p>
+      <button
+        class="btn btn-primary"
+        (click)="deletePhoto(photo.id)"
+        *ngIf="photo.showButton"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<div #addPhotoModal
+  class="modal fade"
+  id="addPhotoModal"
+  tabindex="-1"
+  aria-labelledby="addPhotoModalLabel"
+  aria-hidden="true"
+>
+  <app-add-photo (updateImageDataEvent)="getPhotos()"></app-add-photo>
+</div>

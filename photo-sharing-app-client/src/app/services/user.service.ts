@@ -18,6 +18,12 @@ export interface RegisterUser {
   password: string;
 }
 
+export interface User {
+  email: string;
+  name: string;
+  id: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -29,6 +35,14 @@ export class UserService {
     private tokenService: TokenService,
     private router: Router
   ) {}
+
+  setCurrentUser(user: User) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser') || '{}');
+  }
 
   loginUser(user: LoginUser) {
     return this.http.post(`${this.API_URL}login`, user);
