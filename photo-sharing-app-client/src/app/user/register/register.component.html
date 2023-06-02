@@ -1,22 +1,40 @@
 <div class="login-container">
-  <form class="login-card">
+  <form class="login-card" [formGroup]="userForm" (ngSubmit)="register()">
     <h4>Register</h4>
     <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <label for="name" class="form-label">Name</label>
       <input
-        type="email"
+        type="text"
         class="form-control"
-        id="exampleInputEmail1"
-        aria-describedby="emailHelp"
+        id="name"
+        formControlName="name"
+        required
       />
     </div>
     <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1" />
+      <label for="email" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        aria-describedby="emailHelp"
+        formControlName="email"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        formControlName="password"
+        required
+      />
     </div>
     <div class="form-text mb-3" routerLink="/login">
-        Already registered ? Click here to login.
-      </div>
+      Already registered ? Click here to login.
+    </div>
     <button type="submit" class="btn btn-primary">Register</button>
   </form>
 </div>
