@@ -1,23 +1,41 @@
 // todo: add proper api respose format
 // Middleware for handling API responses
+successResponse = (data, message) => {
+  return {
+    code: 1,
+    status: "success",
+    message: message,
+    data: data,
+  };
+};
+
+errorResponse = (message) => {
+  return {
+    code: 0,
+    status: "failure",
+    message: message,
+    data: {},
+  };
+};
+
 success = (res, data) => {
-  res.status(200).json(data);
+  res.status(200).json(successResponse(data.data, data.message));
 };
 
 created = (res, data) => {
-  res.status(201).json(data);
+  res.status(201).json(successResponse(data.data, data.message));
 };
 
 noContent = (res, data) => {
-  res.status(204).json(data);
+  res.status(204).json(successResponse(data.data, data.message));
 };
 
 badRequest = (res, error) => {
-  res.status(400).json({ error: error.message || "Bad Request" });
+  res.status(400).json(errorResponse(error.message || "Bad Request"));
 };
 
 unauthorized = (res, error) => {
-  res.status(401).json({ error: error.message || "Unauthorized" });
+  res.status(401).json(errorResponse(error.message || "Unauthorized"));
 };
 
 alreadyExist = (res, error) => {

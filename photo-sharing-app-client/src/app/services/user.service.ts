@@ -44,6 +44,17 @@ export class UserService {
     return JSON.parse(localStorage.getItem('currentUser') || '{}');
   }
 
+  removeCurrentUser() {
+    localStorage.setItem('currentUser', '');
+  }
+
+  isAuthenticated() {
+    if (this.tokenService.getAuthToken()) {
+      return true;
+    }
+    return false;
+  }
+
   loginUser(user: LoginUser) {
     return this.http.post(`${this.API_URL}login`, user);
   }
@@ -54,6 +65,7 @@ export class UserService {
 
   logout(): void {
     this.tokenService.clearAuthToken();
+    this.removeCurrentUser();
     this.router.navigate(['/login']).then((_) => false);
   }
 }
