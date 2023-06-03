@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -33,7 +34,8 @@ export class LoginComponent {
     private tokenService: TokenService,
     private userService: UserService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService
   ) {}
 
   login(): void {
@@ -57,9 +59,8 @@ export class LoginComponent {
             email: loggedInRes.data.email,
             id: loggedInRes.data._id,
           });
-
           this.router.navigate(['/photos']).then((_) => false);
-        }else{
+        } else {
           //todo: display error // loggedInRes.message
         }
       },

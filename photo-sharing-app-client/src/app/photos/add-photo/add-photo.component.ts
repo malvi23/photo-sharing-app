@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { PhotosService } from 'src/app/services/photos.service';
 
 @Component({
@@ -16,15 +17,29 @@ export class AddPhotoComponent {
   selectedImage: any;
   @Output() updateImageDataEvent = new EventEmitter<string>();
 
-  constructor(private photoService: PhotosService) {}
+  constructor(
+    private photoService: PhotosService,
+    private toastr: ToastrService
+  ) {}
 
   onImageSelected(event: any) {
     const file: File = event.target.files[0];
     this.selectedImage = file;
   }
 
-  addPhoto() {
+  ngOnInit() {
+    this.addPhotoForm = new FormGroup({
+      title: new FormControl('', [Validators.required]),
+      description: new FormControl(''),
+      image: new FormControl(null, Validators.required),
+    });
+  }
 
+  resetForm(): void {
+    this.addPhotoForm.reset();
+  }
+
+  addPhoto() {
     if (this.addPhotoForm.invalid) {
       return;
     }
@@ -35,9 +50,11 @@ export class AddPhotoComponent {
 
     this.photoService.addPhoto(formData).subscribe({
       next: (response: any) => {
-        if(response.code){
-          this.updateImageDataEvent.emit(response)
-        }else{
+        this.resetForm();
+        if (response.code) {
+          this.toastr.success(response.message, '', { closeButton: true });
+          this.updateImageDataEvent.emit(response);
+        } else {
           // todo: display error
         }
       },

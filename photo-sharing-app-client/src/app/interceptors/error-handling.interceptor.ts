@@ -8,27 +8,36 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class ErrorHandlingInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private toastr: ToastrService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
+      catchError((error: any) => {
         console.error('An error occurred:', error);
+        let err = new Error(error.message);
+        console.log(err);
 
-        // Optionally, you can throw a custom error or re-throw the original error
-        // throw new Error('Custom error message');
+        // Handle the error based on its type
+        if (error instanceof HttpErrorResponse) {
+          // Handle HTTP errors
+          console.log('HTTP error:', error);
+          console.log('HTTP error status:', error.status);
+        } else {
+          // Handle other errors (e.g., client-side errors)
+          console.log('Other error:', error);
+          console.log('Other error message:', error.message);
+        }
+        this.toastr.error(error.statusText, '', { closeButton: true })
+        return throwError(() => err);
         // return throwError(error);
-
-        // Rethrow the error to propagate it to the subscriber
-        return throwError(error);
       })
     );
-    // return next.handle(request);
   }
 }

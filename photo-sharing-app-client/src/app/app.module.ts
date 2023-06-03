@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CookieModule } from 'ngx-cookie';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorHandlingInterceptor } from './interceptors/error-handling.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +17,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppRoutingModule,
     HttpClientModule,
     CookieModule.withOptions(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
@@ -21,6 +26,11 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlingInterceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent],
 })

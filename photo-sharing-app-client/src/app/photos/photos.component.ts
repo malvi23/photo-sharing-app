@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { TokenService } from '../services/token.service';
 import { PhotosService } from '../services/photos.service';
 import { Observable, map } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 export interface Response {
   message: string;
@@ -31,7 +32,8 @@ export class PhotosComponent {
     private userService: UserService,
     private router: Router, // private formBuilder: FormBuilder
     private ngZone: NgZone,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +76,7 @@ export class PhotosComponent {
       this.photosService.deletePhoto(photoId).subscribe({
         next: (response: any) => {
           if (response.code) {
+            this.toastr.success(response.message, '', {closeButton:true});
             this.allPhotos = this.allPhotos.filter(
               (photo: any) => photo.id !== photoId
             );

@@ -41,6 +41,7 @@
             (change)="onImageSelected($event)"
             formControlName="image"
             required
+            accept="image/png, image/gif, image/jpeg"
           />
         </div>
       </form>
@@ -49,7 +50,14 @@
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
         Close
       </button>
-      <button type="submit" class="btn btn-primary" (click)="addPhoto()" data-bs-dismiss="modal">Add Photo</button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        (click)="addPhoto()"
+        data-bs-dismiss="modal"
+      >
+        Add Photo
+      </button>
     </div>
   </div>
 </div>
