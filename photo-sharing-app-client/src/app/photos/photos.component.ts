@@ -52,25 +52,17 @@ export class PhotosComponent {
   }
 
   getPhotos() {
-    console.log("called !");
     this.photosService.getUserPhotos().subscribe({
       next: (photosRes: any) => {
-        this.allPhotos = photosRes.data.map((image: any) => ({
-          ...image,
-          blobImage: URL.createObjectURL(
-            this.base64toBlob(image.base64Image, 'image/jpeg')
-          ),
-        }));
+        if (photosRes.code) {
+          this.allPhotos = photosRes.data.map((image: any) => ({
+            ...image,
+            blobImage: URL.createObjectURL(
+              this.base64toBlob(image.base64Image, 'image/jpeg')
+            ),
+          }));
+        }
       },
-      error: (e) => {
-        console.log(e);
-      },
-    });
-  }
-
-  addNewPhoto(photoData: any) {
-    this.photosService.addPhoto(photoData).subscribe({
-      next: (response) => {},
       error: (e) => {
         console.log(e);
       },
@@ -80,8 +72,14 @@ export class PhotosComponent {
   deletePhoto(photoId: string) {
     if (confirm('Are you sure you want to delete this photo ?')) {
       this.photosService.deletePhoto(photoId).subscribe({
-        next: (response) => {
-          this.allPhotos = this.allPhotos.filter((photo:any) => photo.id !== photoId);
+        next: (response: any) => {
+          if (response.code) {
+            this.allPhotos = this.allPhotos.filter(
+              (photo: any) => photo.id !== photoId
+            );
+          }else{
+            //todo:display error
+          }
         },
         error: (e) => {
           console.log(e);

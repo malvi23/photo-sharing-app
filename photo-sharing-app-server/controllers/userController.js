@@ -28,7 +28,7 @@ exports.registerUser = async (req, res) => {
 
     if (oldUser) {
       return apiResponse.alreadyExist(res, {
-        message: "User Already Exist. Please Login",
+        message: "User Already Exist. Please Login.",
       });
     }
 
@@ -42,16 +42,7 @@ exports.registerUser = async (req, res) => {
       password: encryptedPassword,
     });
 
-    // Create token
-    // const token = jwt.sign(
-    //   { user_id: user._id, email },
-    //   environment.TOKEN_KEY,
-    //   {
-    //     expiresIn: "2h",
-    //   }
-    // );
-
-    // save user token
+    // create and save user token
     user.token = createToken(user._id, email);
     // user.token = token;
 
@@ -81,16 +72,7 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      // Create token
-      // const token = jwt.sign(
-      //   { user_id: user._id, email },
-      //   environment.TOKEN_KEY,
-      //   {
-      //     expiresIn: "2h",
-      //   }
-      // );
-
-      // save user token
+      // create and save user token
       user.token = createToken(user._id, email);
       // user.token = token;
 

@@ -32,9 +32,13 @@ export class RegisterComponent {
     };
     this.userService.registerUser(data).subscribe({
       next: (registeredUserRes: any) => {
-        let authToken = registeredUserRes.data.token;
-        this.tokenService.setAuthToken(authToken);
-        this.router.navigate(['/photos']).then((_) => false);
+        if (registeredUserRes.code) {
+          let authToken = registeredUserRes.data.token;
+          this.tokenService.setAuthToken(authToken);
+          this.router.navigate(['/photos']).then((_) => false);
+        }else{
+          //todo:display error
+        }
       },
       error: (error) => {
         console.error(error);

@@ -28,23 +28,18 @@ export class AddPhotoComponent {
     if (this.addPhotoForm.invalid) {
       return;
     }
-
     const formData = new FormData();
-
-    // const imageFile = this.addPhotoForm.get('image')?.value;
-
     formData.append('title', this.addPhotoForm.get('title')?.value);
     formData.append('description', this.addPhotoForm.get('description')?.value);
     formData.append('image', this.selectedImage);
-    // const data = {
-    //   title: this.addPhotoForm.value.title,
-    //   description: this.addPhotoForm.value.description,
-    //   image: this.selectedImage,
-    // };
 
     this.photoService.addPhoto(formData).subscribe({
       next: (response: any) => {
-        this.updateImageDataEvent.emit(response)
+        if(response.code){
+          this.updateImageDataEvent.emit(response)
+        }else{
+          // todo: display error
+        }
       },
       error: (error) => {
         console.error(error);
