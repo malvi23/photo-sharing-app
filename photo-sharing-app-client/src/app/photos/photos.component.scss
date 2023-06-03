@@ -1,9 +1,17 @@
 .photos-container {
     margin: 5px;
-
+    border: 1px solid #dcdee1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    
     .btn {
         margin: 0 3px;
     }
+}
+
+.navbar {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .header-section {
@@ -35,16 +43,21 @@
     right: 5px;
 }
 
-.delete-icon {
+.delete-icon-container {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 11px;
+    right: 2px;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 50%;
-    padding: 5px;
+    padding: 2px;
 }
 
-.delete-icon:hover {
+.delete-icon-container:hover {
     background-color: rgba(255, 255, 255, 1);
+}
+
+.trash-icon {
+    font-size: 13px;
+    padding: 0px 7px 6px 7px;
 }

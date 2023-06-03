@@ -5,12 +5,13 @@
       <div class="d-flex">
         <button
           type="button"
-          class="btn btn-secondary btn-sm"
-          (click)="getPhotos()"
+          class="btn btn-outline-secondary"
           data-bs-toggle="modal"
           data-bs-target="#addPhotoModal"
         >
-          Add New Photo
+        <i class="fas fa-solid fa-cloud-arrow-up"></i>
+        <!-- <i class="fas fa-solid fa-plus"></i> -->
+        Upload Photo
         </button>
         <button
           type="button"
@@ -18,6 +19,7 @@
           (click)="logout()"
         >
           Logout
+          <i class="fas fa-light fa-right-from-bracket"></i>
         </button>
       </div>
     </div>
@@ -33,12 +35,8 @@
     >
       <div class="image-container">
         <img [src]="photo.blobImage" class="card-img-top" alt="..." />
-        <span class="delete-icon" (click)="deletePhoto(photo.id)">
-          <!-- <i class="fas fa-trash"></i> -->
-          X
-          <!-- <button class="btn btn-primary" (click)="deletePhoto(photo.id)">
-            Delete
-          </button> -->
+        <span class="delete-icon-container" (click)="deletePhoto(photo.id)">
+          <i class="fas fa-trash trash-icon"></i>
         </span>
       </div>
       <div class="card-body">

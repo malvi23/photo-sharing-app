@@ -52,6 +52,7 @@ export class PhotosComponent {
   }
 
   getPhotos() {
+    console.log("called !");
     this.photosService.getUserPhotos().subscribe({
       next: (photosRes: any) => {
         this.allPhotos = photosRes.data.map((image: any) => ({

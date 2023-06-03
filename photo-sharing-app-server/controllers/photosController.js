@@ -31,7 +31,7 @@ exports.addPhoto = (req, res) => {
 // API endpoint to fetch all photos of a user
 exports.getUserPhotos = (req, res) => {
   const userId = req.headers["user-id"];
-  Photo.find({ userId: userId })
+  Photo.find({ userId: userId }).sort({ uploadDate: -1 })
     .then(async (photos) => {
       const photosWithFiles = await Promise.all(
         photos.map(async (photo) => {
