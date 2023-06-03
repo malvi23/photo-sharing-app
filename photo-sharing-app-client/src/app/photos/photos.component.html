@@ -9,9 +9,9 @@
           data-bs-toggle="modal"
           data-bs-target="#addPhotoModal"
         >
-        <i class="fas fa-solid fa-cloud-arrow-up"></i>
-        <!-- <i class="fas fa-solid fa-plus"></i> -->
-        Upload Photo
+          <i class="fas fa-solid fa-cloud-arrow-up"></i>
+          <!-- <i class="fas fa-solid fa-plus"></i> -->
+          Upload Photo
         </button>
         <button
           type="button"
@@ -25,7 +25,28 @@
     </div>
   </nav>
 
-  <div class="row" style="display: flex">
+  <div
+    class="row spinner-container"
+    *ngIf="spinnerService.isSpinnerVisible || allPhotos.length == 0"
+  >
+    <div class="d-flex justify-content-center">
+      <!-- Spinner -->
+      <div
+        class="spinner-border"
+        style="width: 3rem; height: 3rem"
+        role="status"
+        *ngIf="spinnerService.isSpinnerVisible"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <!-- No images uploaded -->
+      <div class="d-flex justify-content-center" *ngIf="allPhotos.length == 0">
+        <img src="../../assets/No-image-available.jpg" alt="" />
+      </div>
+    </div>
+  </div>
+  
+  <div class="row" style="display: flex" *ngIf="!spinnerService.isSpinnerVisible && allPhotos.length > 0">
     <div
       *ngFor="let photo of allPhotos"
       class="card col-md-3 col-lg-3 col-sm-3"

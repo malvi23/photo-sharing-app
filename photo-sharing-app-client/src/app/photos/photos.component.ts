@@ -11,6 +11,7 @@ import { TokenService } from '../services/token.service';
 import { PhotosService } from '../services/photos.service';
 import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { SpinnerService } from '../services/spinner.service';
 
 export interface Response {
   message: string;
@@ -23,9 +24,9 @@ export interface Response {
   styleUrls: ['./photos.component.scss'],
 })
 export class PhotosComponent {
-  allPhotos: any;
+  allPhotos: any = [];
   // allPhotos$: Observable<any[]> | undefined;
-
+  isSpinnerVisible: boolean = false;
   constructor(
     private photosService: PhotosService,
     private tokenService: TokenService,
@@ -33,11 +34,14 @@ export class PhotosComponent {
     private router: Router, // private formBuilder: FormBuilder
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public spinnerService: SpinnerService
   ) {}
 
   ngOnInit(): void {
     this.getPhotos();
+    console.log(this.spinnerService.isSpinnerVisible);
+    
   }
 
   base64toBlob(base64: string, type: string): Blob {
@@ -76,11 +80,11 @@ export class PhotosComponent {
       this.photosService.deletePhoto(photoId).subscribe({
         next: (response: any) => {
           if (response.code) {
-            this.toastr.success(response.message, '', {closeButton:true});
+            this.toastr.success(response.message, '', { closeButton: true });
             this.allPhotos = this.allPhotos.filter(
               (photo: any) => photo.id !== photoId
             );
-          }else{
+          } else {
             //todo:display error
           }
         },

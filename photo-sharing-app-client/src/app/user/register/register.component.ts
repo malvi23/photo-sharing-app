@@ -35,6 +35,14 @@ export class RegisterComponent {
         if (registeredUserRes.code) {
           let authToken = registeredUserRes.data.token;
           this.tokenService.setAuthToken(authToken);
+          
+          //storing user data
+          this.userService.setCurrentUser({
+            name: registeredUserRes.data.name,
+            email: registeredUserRes.data.email,
+            id: registeredUserRes.data._id,
+          });
+
           this.router.navigate(['/photos']).then((_) => false);
         }else{
           //todo:display error

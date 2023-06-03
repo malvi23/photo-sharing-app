@@ -18,7 +18,7 @@ exports.registerUser = async (req, res) => {
 
     // Validate user input
     if (!(email && password && name)) {
-      return apiResponse.BadRequest(res, { message: "All input is required" });
+      return apiResponse.badRequest(res, { message: "All input is required" });
       // res.status(400).send("All input is required");
     }
 

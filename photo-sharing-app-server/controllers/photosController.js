@@ -35,6 +35,11 @@ exports.addPhoto = (req, res) => {
 
 // API endpoint to fetch all photos of a user
 exports.getUserPhotos = (req, res) => {
+  if (!(req.body && req.headers["user-id"])) {
+    return apiResponse.badRequest(res, {
+      message: "Required data not found in request !",
+    });
+  }
   const userId = req.headers["user-id"];
   Photo.find({ userId: userId })
     .sort({ uploadDate: -1 })
@@ -65,6 +70,11 @@ exports.getUserPhotos = (req, res) => {
 
 // API endpoint for deleting a photo
 exports.deleteUserPhoto = (req, res) => {
+  if (!(req.params && req.headers["user-id"])) {
+    return apiResponse.badRequest(res, {
+      message: "Required data not found in request !",
+    });
+  }
   const userId = req.headers["user-id"];
   const photoId = req.params.id;
   Photo.findByIdAndDelete(photoId)
