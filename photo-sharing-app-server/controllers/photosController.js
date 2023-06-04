@@ -68,17 +68,25 @@ exports.getUserPhotos = (req, res) => {
     });
 };
 
+//delete photo from path
+deletePhoto = (photoPath) => {
+  const filePath = path.join(__dirname, "../", photoPath);
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+  }
+};
+
 // API endpoint for deleting a photo
 exports.deleteUserPhoto = (req, res) => {
-  if (!(req.params && req.headers["user-id"])) {
+  if (!req.params) {
     return apiResponse.badRequest(res, {
       message: "Required data not found in request !",
     });
   }
-  const userId = req.headers["user-id"];
   const photoId = req.params.id;
   Photo.findByIdAndDelete(photoId)
-    .then(() => {
+    .then(async (photo) => {
+      await deletePhoto(photo.imageUrl);
       return apiResponse.success(res, {
         message: "Photo deleted successfully !",
       });
