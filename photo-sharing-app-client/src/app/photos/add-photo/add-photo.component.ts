@@ -54,13 +54,10 @@ export class AddPhotoComponent {
         if (response.code) {
           this.toastr.success(response.message, '', { closeButton: true });
           this.updateImageDataEvent.emit(response);
-        } else {
-          // todo: display error
-        }
+        } 
       },
       error: (error) => {
         console.error(error);
-        //todo: handle error using http interceptor
       },
     });
   }

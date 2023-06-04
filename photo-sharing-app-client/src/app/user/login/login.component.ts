@@ -9,15 +9,10 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
-
-export interface LoggedInUser {
-  //todo: define interface
-  message: string;
-  data: {
-    email: string;
-    password: string;
-  };
-}
+import {
+  LoggedInUserReq,
+  LoggedInUserRes,
+} from '../../interfaces/user-interface';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +37,7 @@ export class LoginComponent {
     if (this.userForm.invalid) {
       return;
     }
-    const data = {
+    const data: LoggedInUserReq = {
       email: this.userForm.value.email,
       password: this.userForm.value.password,
     };
@@ -60,8 +55,6 @@ export class LoginComponent {
             id: loggedInRes.data._id,
           });
           this.router.navigate(['/photos']).then((_) => false);
-        } else {
-          //todo: display error // loggedInRes.message
         }
       },
       error: (error) => {

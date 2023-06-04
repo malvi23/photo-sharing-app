@@ -49,7 +49,12 @@ exports.registerUser = async (req, res) => {
     // return new user
     return apiResponse.created(res, {
       message: "Registreed successfully !",
-      data: user,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token: user.token,
+      },
     });
     // res.status(201).json(user);
   } catch (err) {
@@ -74,14 +79,16 @@ exports.loginUser = async (req, res) => {
     if (user && (await bcrypt.compare(password, user.password))) {
       // create and save user token
       user.token = createToken(user._id, email);
-      // user.token = token;
 
-      // user
-      // res.setHeader("Access-Control-Allow-Headers", "X-Requested-With, content-type");
       res.set("Access-Control-Allow-Origin", "http://localhost:4200");
       return apiResponse.success(res, {
         message: "Loggedin successfully !",
-        data: user,
+        data: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+          token: user.token,
+        },
       });
     }
     return apiResponse.badRequest(res, { message: "Invalid Credentials" });

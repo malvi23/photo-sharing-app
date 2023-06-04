@@ -40,7 +40,7 @@
         <span class="visually-hidden">Loading...</span>
       </div>
       <!-- No images uploaded -->
-      <div class="d-flex justify-content-center" *ngIf="allPhotos.length == 0">
+      <div *ngIf="!spinnerService.isSpinnerVisible && allPhotos.length == 0">
         <img src="../../assets/No-image-available.jpg" alt="" />
       </div>
     </div>
@@ -65,10 +65,6 @@
         <p class="card-text">
           {{ photo.description }}
         </p>
-        <!-- *ngIf="photo.showButton" -->
-        <!-- <button class="btn btn-primary" (click)="deletePhoto(photo.id)">
-          Delete
-        </button> -->
       </div>
     </div>
   </div>

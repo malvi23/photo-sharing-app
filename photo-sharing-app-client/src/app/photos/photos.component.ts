@@ -12,6 +12,7 @@ import { PhotosService } from '../services/photos.service';
 import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from '../services/spinner.service';
+import {LoggedInUserReq} from '../interfaces/photos-interface';
 
 export interface Response {
   message: string;
@@ -40,8 +41,6 @@ export class PhotosComponent {
 
   ngOnInit(): void {
     this.getPhotos();
-    console.log(this.spinnerService.isSpinnerVisible);
-    
   }
 
   base64toBlob(base64: string, type: string): Blob {
@@ -59,7 +58,7 @@ export class PhotosComponent {
 
   getPhotos() {
     this.photosService.getUserPhotos().subscribe({
-      next: (photosRes: any) => {
+      next: (photosRes: LoggedInUserReq) => {
         if (photosRes.code) {
           this.allPhotos = photosRes.data.map((image: any) => ({
             ...image,
@@ -84,8 +83,6 @@ export class PhotosComponent {
             this.allPhotos = this.allPhotos.filter(
               (photo: any) => photo.id !== photoId
             );
-          } else {
-            //todo:display error
           }
         },
         error: (e) => {

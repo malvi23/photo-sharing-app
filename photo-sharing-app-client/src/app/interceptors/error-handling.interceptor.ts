@@ -21,6 +21,7 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
         console.error('An error occurred:', error);
+        let errorMsg = error.statusText;
         let err = new Error(error.message);
         console.log(err);
 
@@ -28,13 +29,13 @@ export class ErrorHandlingInterceptor implements HttpInterceptor {
         if (error instanceof HttpErrorResponse) {
           // Handle HTTP errors
           console.log('HTTP error:', error);
-          console.log('HTTP error status:', error.status);
+          errorMsg = error.error.message;
         } else {
           // Handle other errors (e.g., client-side errors)
           console.log('Other error:', error);
-          console.log('Other error message:', error.message);
+          errorMsg = error.message;
         }
-        this.toastr.error(error.statusText, '', { closeButton: true })
+        this.toastr.error(errorMsg, '', { closeButton: true });
         return throwError(() => err);
         // return throwError(error);
       })
