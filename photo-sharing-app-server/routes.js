@@ -9,13 +9,14 @@ const uploadFile = require("./middleware/fileUpload");
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
 router.post(
-    "/addPhoto",
-    auth,
-    uploadFile.single('image'),
-    photosController.addPhoto
-  );
-router.get('/getUserPhotos', auth, photosController.getUserPhotos); 
-router.delete('/deletePhoto/:id', auth, photosController.deleteUserPhoto);
+  "/addPhoto",
+  auth,
+  uploadFile.single("image"),
+  photosController.addPhoto
+);
+router.get("/getUserPhotos", auth, photosController.getUserPhotos);
+router.delete("/deletePhoto/:id", auth, photosController.deleteUserPhoto);
+router.post("/deletePhotos", auth, photosController.deleteUserPhotos);
 
 // Export the router
 module.exports = router;

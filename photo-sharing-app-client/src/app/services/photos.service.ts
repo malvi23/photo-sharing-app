@@ -32,4 +32,8 @@ export class PhotosService {
   deletePhoto(photoId: string) {
     return this.http.delete(`${this.API_URL}deletePhoto/${photoId}`);
   }
+
+  deletePhotos(photoData: any) {
+    return this.http.post(`${this.API_URL}deletePhotos`, photoData);
+  }
 }

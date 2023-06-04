@@ -5,7 +5,8 @@ import { PhotosRoutingModule } from './photos-routing.module';
 import { PhotosComponent } from './photos.component';
 import { AddPhotoComponent } from './add-photo/add-photo.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
+import { NgxBootstrapModule } from 'src/app/commons/ngx-bootstrap/ngx-bootstrap.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PhotosRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    NgxBootstrapModule
   ]
 })
 export class PhotosModule { }

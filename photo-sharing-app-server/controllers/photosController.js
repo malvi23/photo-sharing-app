@@ -95,3 +95,29 @@ exports.deleteUserPhoto = (req, res) => {
       return apiResponse.internalServerError(res, err);
     });
 };
+
+exports.deleteUserPhotos = async (req, res) => {
+  console.log("req.body:",req.body)
+  const photoIds = req.body.imageIds;
+  try {
+    const deletedDocuments = await Promise.all(
+      photoIds.map(async (id) => {
+        const deletedDocument = await Photo.findByIdAndDelete(id)
+          .then(async (photo) => {
+            await deletePhoto(photo.imageUrl);
+          })
+          .catch((err) => {
+            return apiResponse.internalServerError(res, err);
+          });
+        return deletedDocument;
+      })
+    );
+
+    console.log("Deleted documents:", deletedDocuments);
+    return apiResponse.success(res, {
+      message: "Photo(s) deleted successfully !",
+    });
+  } catch (error) {
+    console.error("Error deleting documents:", error);
+  }
+};
