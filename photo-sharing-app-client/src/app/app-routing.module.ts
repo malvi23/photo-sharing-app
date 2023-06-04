@@ -5,12 +5,12 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./user/user.module').then((m) => m.UserModule),
+    loadChildren: () => import('./components/user/user.module').then((m) => m.UserModule),
   },
   {
     path: 'photos',
     loadChildren: () =>
-      import('./photos/photos.module').then((m) => m.PhotosModule),
+      import('./components/photos/photos.module').then((m) => m.PhotosModule),
     canActivate: [AuthGuard],
   },
 ];

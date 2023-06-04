@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 import {
   LoggedInUserReq,
   LoggedInUserRes,
-} from '../../interfaces/user-interface';
+} from '../../../interfaces/user-interface';
 
 @Component({
   selector: 'app-login',

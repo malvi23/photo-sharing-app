@@ -5,14 +5,14 @@ import {
   NgZone,
   ViewChild,
 } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { TokenService } from '../services/token.service';
-import { PhotosService } from '../services/photos.service';
+import { TokenService } from '../../services/token.service';
+import { PhotosService } from '../../services/photos.service';
 import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerService } from '../services/spinner.service';
-import {LoggedInUserReq} from '../interfaces/photos-interface';
+import { SpinnerService } from '../../services/spinner.service';
+import {LoggedInUserReq} from '../../interfaces/photos-interface';
 
 export interface Response {
   message: string;
