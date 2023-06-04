@@ -47,14 +47,18 @@ export class PhotosComponent {
     this.getPhotos();
   }
 
-  selectActionClicked(){
-    this.actionBtn = !this.isSelectionEnabled? "Cancel" : "Select"
-    this.isSelectionEnabled = !this.isSelectionEnabled
-    //clear selection
+  clearSelection(){
     this.allPhotos.map((photos:any)=> {
       photos.checked = false
       return photos;
     })
+    this.selectedPhotos= []
+  }
+
+  selectActionClicked(){
+    this.actionBtn = !this.isSelectionEnabled? "Cancel" : "Select"
+    this.isSelectionEnabled = !this.isSelectionEnabled
+    this.clearSelection()
   }
 
   onPhotoDivClick(photo: any){
@@ -124,16 +128,20 @@ export class PhotosComponent {
   }
 
   deletePhotos() {
+    if(this.selectedPhotos.length==0){
+      this.toastr.warning('Please select any photo(s)', '', { closeButton: true })
+      return;
+    }
     if (confirm('Are you sure you want to delete selected photo(s) ?')) {
       console.log("this.selectedPhotos:",this.selectedPhotos)
       this.photosService.deletePhotos({ imageIds: this.selectedPhotos }).subscribe({
         next: (response: any) => {
           if (response.code) {
-            this.selectActionClicked() //To end the select operation
             this.toastr.success(response.message, '', { closeButton: true });
             this.allPhotos = this.allPhotos.filter((photo: any) => {
               return !this.selectedPhotos.includes(photo.id);
             });
+            this.selectActionClicked() //To end the select operation
           }
         },
         error: (e) => {

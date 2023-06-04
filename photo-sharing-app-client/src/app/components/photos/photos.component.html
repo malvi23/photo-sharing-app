@@ -84,7 +84,7 @@
     <div
       *ngFor="let photo of allPhotos"
       class="card col-md-3 col-lg-3 col-sm-3"
-      style="width: 18rem; margin: 5px 5px" [ngClass]="{'selected-image':photo.checked, 'enable-selection':isSelectionEnabled }" (click)="onPhotoDivClick(photo)"
+      style="width: 18rem; margin: 5px 5px" [ngClass]="{'selected-image':photo.checked, 'enable-selection':isSelectionEnabled }" (click)="isSelectionEnabled?onPhotoDivClick(photo):''"
     >
       <div class="image-container">
         <img [src]="photo.blobImage" class="card-img-top" alt="..." />
