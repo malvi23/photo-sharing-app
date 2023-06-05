@@ -20,7 +20,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CookieModule.withOptions(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 10000,
+      timeOut: 5000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),

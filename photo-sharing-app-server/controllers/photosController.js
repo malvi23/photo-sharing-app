@@ -108,7 +108,8 @@ exports.deleteUserPhoto = (req, res) => {
 
 exports.deleteUserPhotos = async (req, res) => {
   // console.log("req.body:", req.body);
-  const photoIds = req.body.imageIds;
+  const photoIds = [...new Map(req.body.imageIds.map(x=> [x, x])).values()]; //removing duplicate ids
+
   let deletedPhotosPaths = [];
   try {
     const deletedDocuments = await Promise.all(
