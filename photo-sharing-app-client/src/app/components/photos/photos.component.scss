@@ -1,4 +1,6 @@
 .photos-container {
+    display: flex;
+
     margin: 5px;
     // border: 1px solid #dcdee1;
     border-top-left-radius: 5px;
@@ -17,6 +19,25 @@
     //     border-top-right-radius: 0.365rem;
     //     border-bottom-right-radius: 0.365rem;
     // }
+
+    .card {
+        width: 18rem;
+        margin: 5px 5px
+    }
+}
+
+.upload-image-card {
+    width: 18rem;
+    cursor: pointer;
+    font-size: 74px;
+    color: darkgray;
+
+    .card-body {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 .spinner-container {

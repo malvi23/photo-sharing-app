@@ -76,6 +76,16 @@ deletePhoto = (photoPath) => {
   }
 };
 
+deleteMultiplePhoto = (photoPaths) => {
+  // Loop through each photo path and delete the corresponding file
+  photoPaths.forEach((photoPath) => {
+    const filePath = path.join(__dirname, "../", photoPath);
+    if (fs.existsSync(filePath)) {
+      fs.unlinkSync(filePath);
+    }
+  });
+};
+
 // API endpoint for deleting a photo
 exports.deleteUserPhoto = (req, res) => {
   if (!req.params) {
@@ -97,14 +107,15 @@ exports.deleteUserPhoto = (req, res) => {
 };
 
 exports.deleteUserPhotos = async (req, res) => {
-  console.log("req.body:",req.body)
+  // console.log("req.body:", req.body);
   const photoIds = req.body.imageIds;
+  let deletedPhotosPaths = [];
   try {
     const deletedDocuments = await Promise.all(
       photoIds.map(async (id) => {
         const deletedDocument = await Photo.findByIdAndDelete(id)
-          .then(async (photo) => {
-            await deletePhoto(photo.imageUrl);
+          .then((photo) => {
+            deletedPhotosPaths.push(photo.imageUrl);
           })
           .catch((err) => {
             return apiResponse.internalServerError(res, err);
@@ -112,8 +123,7 @@ exports.deleteUserPhotos = async (req, res) => {
         return deletedDocument;
       })
     );
-
-    console.log("Deleted documents:", deletedDocuments);
+    await deleteMultiplePhoto(deletedPhotosPaths);
     return apiResponse.success(res, {
       message: "Photo(s) deleted successfully !",
     });

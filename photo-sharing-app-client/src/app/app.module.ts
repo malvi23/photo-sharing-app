@@ -18,7 +18,11 @@ import { ErrorHandlingInterceptor } from './interceptors/error-handling.intercep
     HttpClientModule,
     CookieModule.withOptions(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [
     {

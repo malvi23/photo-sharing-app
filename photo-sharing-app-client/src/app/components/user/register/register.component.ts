@@ -20,6 +20,19 @@ export class RegisterComponent {
     private userService: UserService,
     private router: Router
   ) {}
+  ngOnInit() {
+    this.disableAutofill();
+  }
+
+  disableAutofill(): void {
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+
+    if (emailInput && passwordInput) {
+      emailInput.autocomplete = 'off';
+      passwordInput.autocomplete = 'new-password';
+    }
+  }
 
   register(): void {
     if (this.userForm.invalid) {
@@ -35,7 +48,7 @@ export class RegisterComponent {
         if (registeredUserRes.code) {
           let authToken = registeredUserRes.data.token;
           this.tokenService.setAuthToken(authToken);
-          
+
           //storing user data
           this.userService.setCurrentUser({
             name: registeredUserRes.data.name,
@@ -44,7 +57,7 @@ export class RegisterComponent {
           });
 
           this.router.navigate(['/photos']).then((_) => false);
-        }else{
+        } else {
           //todo:display error
         }
       },

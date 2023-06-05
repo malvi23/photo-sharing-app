@@ -17,8 +17,8 @@
         type="email"
         class="form-control"
         id="email"
-        aria-describedby="emailHelp"
-        formControlName="email"
+        aria-describedby="email"
+        formControlName="email" autocompletetype="off"
         required
       />
     </div>
@@ -28,12 +28,12 @@
         type="password"
         class="form-control"
         id="password"
-        formControlName="password"
+        formControlName="password" autocompletetype="new-password"
         required
       />
     </div>
-    <div class="form-text mb-3" routerLink="/login">
-      Already registered ? Click here to login.
+    <div class="form-text mb-3">
+      Already registered ? Click here to <span routerLink="/login">Login</span>.
     </div>
     <button type="submit" class="btn btn-primary">Register</button>
   </form>

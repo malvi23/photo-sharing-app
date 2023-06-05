@@ -7,11 +7,13 @@ import { AddPhotoComponent } from './add-photo/add-photo.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { NgxBootstrapModule } from 'src/app/commons/ngx-bootstrap/ngx-bootstrap.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     PhotosComponent,
-    AddPhotoComponent
+    AddPhotoComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
