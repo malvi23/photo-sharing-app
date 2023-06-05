@@ -1,62 +1,42 @@
 <nav class="navbar navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand">Photos</a>
-      <div class="d-flex">
+  <div class="container-fluid">
+    <a class="navbar-brand">Photos</a>
+    <div class="d-flex">
+      <!-- Select/Cancel button -->
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        (click)="selectActionClicked()"
+        *ngIf="allPhotos.length > 0"
+      >
+        {{ actionBtn }}
+      </button>
+
+      <!-- Delete button -->
+      <div *ngIf="isSelectionEnabled">
         <button
           type="button"
-          class="btn btn-outline-secondary"
-          (click)="selectActionClicked()" *ngIf="allPhotos.length>0"
+          class="btn btn-info"
+          aria-label="deletePhoto"
+          title="Delete Photo"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          (click)="deletePhotos()"
         >
-          {{ actionBtn }}
+          <i class="fas fa-trash trash-icon"></i>
         </button>
-
-        <div *ngIf="isSelectionEnabled">
-          <button type="button" class="btn btn-info" aria-label="deletePhoto" title="Delete Photo" data-bs-toggle="tooltip" data-bs-placement="left" (click)="deletePhotos()">
-            <i class="fas fa-trash trash-icon"></i>
-          </button>
-          <!-- <button type="button" class="btn btn-info"><i class="fa-solid fa-download"></i></button> -->
-        </div>
-
-        <button
-          type="button"
-          class="btn btn-outline-secondary" title="Logout" (click)="logout()"
-        >
-        <i class="fas fa-light fa-right-from-bracket"></i>
-        </button>
-
-        <!-- User profile dropdown -->
-        <div class="btn-group" dropdown [insideClick]="true" *ngIf="false">
-          <button
-            dropdownToggle
-            type="button"
-            class="btn btn-outline-secondary dropdown-toggle"
-          >
-            <i class="fa-solid fa-user"></i>
-            <span class="caret"></span>
-          </button>
-          <ul
-            *dropdownMenu
-            class="dropdown-menu dropdown-menu-right"
-            role="menu"
-          >
-            <li role="menuitem">
-              <a
-                class="dropdown-item"
-                data-bs-toggle="modal"
-                data-bs-target="#addPhotoModal"
-              >
-                <!-- <i class="fas fa-solid fa-cloud-arrow-up"></i>  -->
-                Upload photo</a
-              >
-            </li>
-            <li role="menuitem">
-              <a class="dropdown-item" (click)="logout()" title="Logout"
-                >Logout
-                <i class="fas fa-light fa-right-from-bracket"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
+        <!-- <button type="button" class="btn btn-info"><i class="fa-solid fa-download"></i></button> -->
       </div>
+
+      <!-- Logout Button -->
+      <button
+        type="button"
+        class="btn btn-outline-secondary"
+        title="Logout"
+        (click)="logout()"
+      >
+        <i class="fas fa-light fa-right-from-bracket"></i>
+      </button>
     </div>
-  </nav>
+  </div>
+</nav>

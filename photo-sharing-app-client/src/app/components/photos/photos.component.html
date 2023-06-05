@@ -1,4 +1,5 @@
 <div class="photos-container row">
+  <!-- Navbar -->
   <app-navbar
     [allPhotos]="allPhotos"
     [selectedPhotos]="selectedPhotos"
@@ -8,27 +9,18 @@
     (selectActionEvent)="selectActionClicked()"
   ></app-navbar>
 
+  <!-- Spinner -->
   <div class="row spinner-container" *ngIf="spinnerService.isSpinnerVisible">
     <div class="d-flex justify-content-center">
-      <!-- Spinner -->
-      <div
-        class="spinner-border"
-        style="width: 3rem; height: 3rem"
-        role="status"
-        *ngIf="spinnerService.isSpinnerVisible"
-      >
+      <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-      <!-- No images uploaded -->
-      <!-- <div *ngIf="!spinnerService.isSpinnerVisible && allPhotos.length == 0">
-        <img src="../../assets/No-image-available.jpg" alt="" />
-      </div> -->
     </div>
   </div>
 
+  <!-- Photos section -->
   <div
-    class="row"
-    style="display: flex; justify-content: flex-start; margin-left: 1.3em"
+    class="row photos-section"
     *ngIf="!spinnerService.isSpinnerVisible"
   >
     <!-- Upload new image card -->
@@ -38,7 +30,7 @@
       data-bs-target="#addPhotoModal"
     >
       <div class="card-body">
-        <i class="fa-sharp fa-solid fa-plus "></i>
+        <i class="fa-sharp fa-solid fa-plus"></i>
         <h5 class="card-title">Upload Photo</h5>
       </div>
     </div>
@@ -68,9 +60,6 @@
               (change)="onphotoSelect(photo)"
             />
           </div>
-          <!-- <span class="delete-icon-container" (click)="deletePhoto(photo.id)">
-          <i class="fas fa-trash trash-icon"></i>
-        </span> -->
         </div>
         <div class="card-body">
           <h5 class="card-title">{{ photo.title }}</h5>
@@ -83,6 +72,7 @@
   </div>
 </div>
 
+<!-- Add new photo modal -->
 <div
   #addPhotoModal
   class="modal fade"
