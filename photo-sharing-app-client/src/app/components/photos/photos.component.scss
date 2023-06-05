@@ -24,6 +24,14 @@
             right: 5px;
         }
 
+        .description-container {
+            height: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
         .selection-checkbox {
             position: absolute;
             top: 11px;

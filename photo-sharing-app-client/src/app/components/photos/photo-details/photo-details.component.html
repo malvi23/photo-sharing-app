@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ photoData.title }}</h4>
+  <button
+    type="button"
+    class="btn-close close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row" style="justify-content: center">
+    <div class="col-md-12 image-container">
+      <img [src]="photoData.blobImage" alt="Modal Image" class="img-fluid" />
+    </div>
+    <div class="col-md-12">
+      <div style="max-height: 400px; overflow-y: auto">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus
+          efficitur sagittis velit, et elementum ligula vehicula sit amet. Morbi
+          et sapien mi. Sed auctor, justo ac rhoncus volutpat, mauris justo
+          scelerisque urna, vitae ultricies lorem leo vel tellus. In id ex in
+          odio viverra maximus a vel mauris. Integer eget ipsum ac erat pharetra
+          gravida. Nulla in magna sed mi suscipit cursus non sed odio. Nullam
+          posuere dignissim massa ac eleifend. Aliquam finibus, ipsum non
+          finibus tincidunt, justo nunc feugiat arcu, non posuere metus nisl ac
+          neque. In pharetra, massa ut volutpat ultricies, orci nibh condimentum
+          nulla, vel sagittis urna nisi vitae felis. Fusce a justo nisl. Ut
+          vulputate ullamcorper sapien, non sollicitudin turpis iaculis id. In
+          tristique massa sit amet tortor ultrices, vitae elementum lectus
+          placerat.
+        </p>
+        <!-- Add more paragraphs as needed -->
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-secondary"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    Close
+  </button>
+</div>

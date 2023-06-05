@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   NgZone,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { UserService } from '../../services/user.service';
@@ -13,11 +14,8 @@ import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from '../../services/spinner.service';
 import { LoggedInUserReq } from '../../interfaces/photos-interface';
-
-export interface Response {
-  message: string;
-  data: any;
-}
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 
 @Component({
   selector: 'app-photos',
@@ -28,9 +26,10 @@ export class PhotosComponent {
   allPhotos: any = [];
   // allPhotos$: Observable<any[]> | undefined;
   isSpinnerVisible: boolean = false;
-  actionBtn:string="Select";
+  actionBtn: string = 'Select';
   isSelectionEnabled: boolean = false;
-  selectedPhotos: any[] = [] 
+  selectedPhotos: any[] = [];
+  modalRef?: BsModalRef;
 
   constructor(
     private photosService: PhotosService,
@@ -40,37 +39,50 @@ export class PhotosComponent {
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
-    public spinnerService: SpinnerService
+    public spinnerService: SpinnerService,
+    private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
     this.getPhotos();
   }
 
-  clearSelection(){
-    this.allPhotos.map((photos:any)=> {
-      photos.checked = false
+  openPhotoDetailsModal(photo: any) {
+    const initialState: ModalOptions = {
+      initialState: {
+        size: 'lg' ,
+        photoData: photo
+      },
+    };
+    this.modalRef = this.modalService.show(PhotoDetailsComponent, initialState);
+  }
+
+  clearSelection() {
+    this.allPhotos.map((photos: any) => {
+      photos.checked = false;
       return photos;
-    })
-    this.selectedPhotos= []
+    });
+    this.selectedPhotos = [];
   }
 
-  selectActionClicked(){
-    this.actionBtn = !this.isSelectionEnabled? "Cancel" : "Select"
-    this.isSelectionEnabled = !this.isSelectionEnabled
-    this.clearSelection()
+  selectActionClicked() {
+    this.actionBtn = !this.isSelectionEnabled ? 'Cancel' : 'Select';
+    this.isSelectionEnabled = !this.isSelectionEnabled;
+    this.clearSelection();
   }
 
-  onPhotoDivClick(photo: any){
-    photo.checked = !photo.checked
-    this.onphotoSelect(photo)
+  onPhotoDivClick(photo: any) {
+    photo.checked = !photo.checked;
+    this.onphotoSelect(photo);
   }
 
   onphotoSelect(photo: any) {
     if (photo.checked) {
       this.selectedPhotos.push(photo.id);
     } else {
-      const index = this.selectedPhotos.findIndex((selectedPhoto) => selectedPhoto === photo.id);
+      const index = this.selectedPhotos.findIndex(
+        (selectedPhoto) => selectedPhoto === photo.id
+      );
       if (index !== -1) {
         this.selectedPhotos.splice(index, 1);
       }
@@ -128,26 +140,30 @@ export class PhotosComponent {
   }
 
   deletePhotos() {
-    if(this.selectedPhotos.length==0){
-      this.toastr.warning('Please select any photo(s)', '', { closeButton: true })
+    if (this.selectedPhotos.length == 0) {
+      this.toastr.warning('Please select any photo(s)', '', {
+        closeButton: true,
+      });
       return;
     }
     if (confirm('Are you sure you want to delete selected photo(s) ?')) {
-      console.log("this.selectedPhotos:",this.selectedPhotos)
-      this.photosService.deletePhotos({ imageIds: this.selectedPhotos }).subscribe({
-        next: (response: any) => {
-          if (response.code) {
-            this.toastr.success(response.message, '', { closeButton: true });
-            this.allPhotos = this.allPhotos.filter((photo: any) => {
-              return !this.selectedPhotos.includes(photo.id);
-            });
-            this.selectActionClicked() //To end the select operation
-          }
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
+      console.log('this.selectedPhotos:', this.selectedPhotos);
+      this.photosService
+        .deletePhotos({ imageIds: this.selectedPhotos })
+        .subscribe({
+          next: (response: any) => {
+            if (response.code) {
+              this.toastr.success(response.message, '', { closeButton: true });
+              this.allPhotos = this.allPhotos.filter((photo: any) => {
+                return !this.selectedPhotos.includes(photo.id);
+              });
+              this.selectActionClicked(); //To end the select operation
+            }
+          },
+          error: (e) => {
+            console.log(e);
+          },
+        });
     }
   }
 

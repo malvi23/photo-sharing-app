@@ -9,6 +9,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlingInterceptor } from './interceptors/error-handling.interceptor';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,8 @@ import { ErrorHandlingInterceptor } from './interceptors/error-handling.intercep
       timeOut: 10000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
-    })
+    }),
+    ModalModule.forRoot()
   ],
   providers: [
     {

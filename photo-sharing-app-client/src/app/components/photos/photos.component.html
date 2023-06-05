@@ -44,7 +44,7 @@
           'selected-image': photo.checked,
           'enable-selection': isSelectionEnabled
         }"
-        (click)="isSelectionEnabled ? onPhotoDivClick(photo) : ''"
+        (click)="isSelectionEnabled ? onPhotoDivClick(photo) : openPhotoDetailsModal(photo)"
       >
         <div class="image-container">
           <img [src]="photo.blobImage" class="card-img-top" alt="..." />
@@ -64,7 +64,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ photo.title }}</h5>
           <p class="card-text">
-            {{ photo.description }}
+            {{ photo.description }} 
           </p>
         </div>
       </div>
