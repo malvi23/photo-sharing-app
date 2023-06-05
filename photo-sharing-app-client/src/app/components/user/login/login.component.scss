@@ -1,9 +1,11 @@
 .login-container {
     display: flex;
     place-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    flex-direction: column;
     min-width: 320px;
-    min-height: 100vh;
+    min-height: 100vh;    
+    margin-top: 3em;
 }
 
 .login-card {
@@ -17,4 +19,10 @@
     cursor: pointer;
     font-weight: 600;
     text-decoration: underline;
+}
+
+@media only screen and (min-width: 600px) {
+    .login-card {
+        min-width: 354px;
+    }
 }

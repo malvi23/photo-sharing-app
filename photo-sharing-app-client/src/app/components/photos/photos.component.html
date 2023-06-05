@@ -30,10 +30,9 @@
     <ng-container *ngIf="allPhotos.length > 0">
       <div
         *ngFor="let photo of allPhotos"
-        class="card col-md-3 col-lg-3 col-sm-3"
+        class="card col-md-3 col-lg-3 col-sm-3 enable-selection"
         [ngClass]="{
-          'selected-image': photo.checked,
-          'enable-selection': isSelectionEnabled
+          'selected-image': photo.checked
         }"
         (click)="isSelectionEnabled ? onPhotoDivClick(photo) : openPhotoDetailsModal(photo)"
       >

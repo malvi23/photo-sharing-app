@@ -1,6 +1,8 @@
 <div class="login-container">
+  <div style="margin-bottom: 15px">
+    <h4>Register to PicPantry</h4>
+  </div>
   <form class="login-card" [formGroup]="userForm" (ngSubmit)="register()">
-    <h4>Register</h4>
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>
       <input
@@ -18,7 +20,8 @@
         class="form-control"
         id="email"
         aria-describedby="email"
-        formControlName="email" autocompletetype="off"
+        formControlName="email"
+        autocompletetype="off"
         required
       />
     </div>
@@ -28,7 +31,8 @@
         type="password"
         class="form-control"
         id="password"
-        formControlName="password" autocompletetype="new-password"
+        formControlName="password"
+        autocompletetype="new-password"
         required
       />
     </div>
