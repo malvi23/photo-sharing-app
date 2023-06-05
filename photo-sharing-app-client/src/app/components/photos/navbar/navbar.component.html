@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand"> PicPantry</a>
+    <a class="navbar-brand"> {{currentUserName | titlecase}}'s PicPantry</a>
     <div class="d-flex">
       <!-- Select/Cancel button -->
       <div [hidden]="allPhotos.length == 0">
@@ -28,7 +28,7 @@
         </button>
         <button
           type="button"
-          class="btn btn-info" 
+          class="btn btn-info"
           aria-label="downloadPhotos"
           title="Download selected Photos"
           data-bs-toggle="tooltip"

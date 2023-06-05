@@ -23,12 +23,17 @@ export class NavbarComponent {
   @Output() downloadPhotosEvent = new EventEmitter<string>();
   @Output() selectActionEvent = new EventEmitter<string>();
   @ViewChild('logoutTooltipElement') logoutTooltipElement!: ElementRef;
+  currentUserName: any = '';
   //todo:handle add photo modal open event
 
   constructor(
     private userService: UserService,
     private tooltipService: TooltipService
   ) {}
+
+  ngOnInit(){
+    this.currentUserName = this.userService.getCurrentUser().name
+  }
 
   ngOnDestroy() {
     this.tooltipService.hideTooltips();
