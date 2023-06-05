@@ -1,1 +1,6 @@
 @import '../../user/login/login.component.scss';
+.required-field::before {
+    content: "*";
+    color: red;
+    margin-right: 4px;
+  }

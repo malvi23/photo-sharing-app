@@ -12,7 +12,9 @@
     <div class="modal-body">
       <form [formGroup]="addPhotoForm" (ngSubmit)="addPhoto()">
         <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
+          <label for="title" class="form-label">
+            <span class="required-field"></span>Title</label
+          >
           <input
             type="text"
             class="form-control"
@@ -22,7 +24,9 @@
           />
         </div>
         <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
+          <label for="description" class="form-label"
+            ><span class="required-field"></span>Description</label
+          >
           <textarea
             class="form-control"
             id="description"
@@ -32,7 +36,7 @@
         </div>
         <div class="mb-3">
           <label for="image" class="form-label"
-            >Photo</label
+            ><span class="required-field"></span>Photo</label
           >
           <input
             class="form-control"
@@ -55,6 +59,7 @@
         class="btn btn-primary"
         (click)="addPhoto()"
         data-bs-dismiss="modal"
+        [disabled]="addPhotoForm.invalid"
       >
         Add Photo
       </button>
