@@ -8,5 +8,10 @@ import { SpinnerService } from './services/spinner.service';
 })
 export class AppComponent {
   title = 'photo-sharing-app-client';
+  isSpinnerVisible: boolean =false;
+  
   constructor(public spinnerService: SpinnerService){};
+  ngOnInit(){
+    this.isSpinnerVisible = this.spinnerService.isSpinnerVisible
+  }
 }
