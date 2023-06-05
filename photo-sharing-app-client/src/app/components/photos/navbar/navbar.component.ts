@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { TooltipService } from 'src/app/services/tooltip.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -7,20 +15,27 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  
   @Input() allPhotos: any[] = [];
   @Input() selectedPhotos: any[] = [];
-  @Input() isSelectionEnabled:boolean = false;
-  @Input() actionBtn:string = 'Select';
+  @Input() isSelectionEnabled: boolean = false;
+  @Input() actionBtn: string = 'Select';
   @Output() deletePhotosEvent = new EventEmitter<string>();
+  @Output() downloadPhotosEvent = new EventEmitter<string>();
   @Output() selectActionEvent = new EventEmitter<string>();
+  @ViewChild('logoutTooltipElement') logoutTooltipElement!: ElementRef;
   //todo:handle add photo modal open event
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private tooltipService: TooltipService
+  ) {}
 
-  ngOnInit() {
-    console.log('allPhotos: ', this.allPhotos);
-    console.log('selectedPhotos: ', this.selectedPhotos);
+  ngOnDestroy() {
+    this.tooltipService.hideTooltips();
+  }
+
+  showTooltip(logoutTooltipElement: HTMLElement) {
+    this.tooltipService.showTooltip(logoutTooltipElement);
   }
 
   clearSelection() {
@@ -36,9 +51,11 @@ export class NavbarComponent {
   }
 
   deletePhotos() {
-    console.log('allPhotos: ', this.allPhotos);
-    console.log('this.selectedPhotos:', this.selectedPhotos);
-    this.deletePhotosEvent.emit(); //todo: handle this event
+    this.deletePhotosEvent.emit();
+  }
+
+  downloadPhotos() {
+    this.downloadPhotosEvent.emit();
   }
 
   logout(): void {

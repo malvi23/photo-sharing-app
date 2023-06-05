@@ -17,6 +17,7 @@ import { LoggedInUserReq } from '../../interfaces/photos-interface';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 import Tooltip from 'bootstrap/js/dist/tooltip';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-photos',
@@ -45,8 +46,10 @@ export class PhotosComponent {
   ) {}
 
   ngOnInit(): void {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+    const tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
       return new Tooltip(tooltipTriggerEl);
     });
     this.getPhotos();
@@ -55,8 +58,8 @@ export class PhotosComponent {
   openPhotoDetailsModal(photo: any) {
     const initialState: ModalOptions = {
       initialState: {
-        size: 'lg' ,
-        photoData: photo
+        size: 'lg',
+        photoData: photo,
       },
     };
     this.modalRef = this.modalService.show(PhotoDetailsComponent, initialState);
@@ -163,6 +166,7 @@ export class PhotosComponent {
                 return !this.selectedPhotos.includes(photo.id);
               });
               this.selectActionClicked(); //To end the select operation
+              this.selectActionClicked()
             }
           },
           error: (e) => {
@@ -170,6 +174,22 @@ export class PhotosComponent {
           },
         });
     }
+  }
+
+  downloadPhotos() {
+    let selectedImages = this.allPhotos
+      .filter((photo: any) => {
+        return this.selectedPhotos.includes(photo.id);
+      })
+      .map(
+        (photo: any) =>
+          (photo = { blobImage: photo.blobImage, title: photo.title })
+      );
+    selectedImages.forEach((image: { blobImage: Blob; title: string }) => {
+      saveAs(image.blobImage, image.title);
+    });
+    this.toastr.success('Photos downloaded successfully !', '', { closeButton: true });
+    this.selectActionClicked()
   }
 
   logout(): void {

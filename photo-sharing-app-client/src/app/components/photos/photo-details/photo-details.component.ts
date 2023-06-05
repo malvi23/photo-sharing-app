@@ -14,6 +14,7 @@ export class PhotoDetailsComponent {
   constructor(public bsModalRef: BsModalRef) {}
 
   ngOnInit(){
+    // Initializing bootstrap tooltip 
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
       return new Tooltip(tooltipTriggerEl);

@@ -13,12 +13,12 @@
         </button>
       </div>
 
-      <!-- Delete button -->
+      <!-- Delete & Download buttons -->
       <div [hidden]="!isSelectionEnabled">
         <button
           type="button"
           class="btn btn-info"
-          aria-label="deletePhoto"
+          aria-label="deletePhotos"
           title="Delete selected Photos"
           data-bs-toggle="tooltip"
           data-bs-placement="left"
@@ -26,7 +26,17 @@
         >
           <i class="fas fa-trash trash-icon"></i>
         </button>
-        <!-- <button type="button" class="btn btn-info"><i class="fa-solid fa-download"></i></button> -->
+        <button
+          type="button"
+          class="btn btn-info" 
+          aria-label="downloadPhotos"
+          title="Download selected Photos"
+          data-bs-toggle="tooltip"
+          data-bs-placement="left"
+          (click)="downloadPhotos()"
+        >
+          <i class="fa-solid fa-download"></i>
+        </button>
       </div>
 
       <!-- Logout Button -->
@@ -37,6 +47,8 @@
         (click)="logout()"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
+        #logoutTooltipElement
+        (mouseover)="showTooltip(logoutTooltipElement)"
       >
         <i class="fas fa-light fa-right-from-bracket"></i>
       </button>
