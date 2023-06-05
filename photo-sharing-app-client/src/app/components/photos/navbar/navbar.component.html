@@ -14,7 +14,7 @@
       </div>
 
       <!-- Delete & Download buttons -->
-      <div [hidden]="!isSelectionEnabled">
+      <div [hidden]="!isSelectionEnabled || allPhotos.length == 0">
         <button
           type="button"
           class="btn btn-info"

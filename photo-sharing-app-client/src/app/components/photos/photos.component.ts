@@ -165,8 +165,7 @@ export class PhotosComponent {
               this.allPhotos = this.allPhotos.filter((photo: any) => {
                 return !this.selectedPhotos.includes(photo.id);
               });
-              this.selectActionClicked(); //To end the select operation
-              this.selectActionClicked()
+              this.selectActionClicked();
             }
           },
           error: (e) => {
@@ -177,19 +176,27 @@ export class PhotosComponent {
   }
 
   downloadPhotos() {
-    let selectedImages = this.allPhotos
-      .filter((photo: any) => {
-        return this.selectedPhotos.includes(photo.id);
-      })
-      .map(
-        (photo: any) =>
-          (photo = { blobImage: photo.blobImage, title: photo.title })
-      );
-    selectedImages.forEach((image: { blobImage: Blob; title: string }) => {
-      saveAs(image.blobImage, image.title);
-    });
-    this.toastr.success('Photos downloaded successfully !', '', { closeButton: true });
-    this.selectActionClicked()
+    if (this.selectedPhotos.length > 0) {
+      let selectedImages = this.allPhotos
+        .filter((photo: any) => {
+          return this.selectedPhotos.includes(photo.id);
+        })
+        .map(
+          (photo: any) =>
+            (photo = { blobImage: photo.blobImage, title: photo.title })
+        );
+      selectedImages.forEach((image: { blobImage: Blob; title: string }) => {
+        saveAs(image.blobImage, image.title);
+      });
+      this.toastr.success('Photos downloaded successfully !', '', {
+        closeButton: true,
+      });
+      this.selectActionClicked();
+    } else {
+      this.toastr.warning('Please select photo(s)', '', {
+        closeButton: true,
+      });
+    }
   }
 
   logout(): void {
