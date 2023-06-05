@@ -9,13 +9,14 @@ import { Observable, finalize } from 'rxjs';
 import { TokenService } from '../services/token.service';
 import { UserService } from '../services/user.service';
 import { SpinnerService } from '../services/spinner.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService, private router: Router
   ) {}
 
   intercept(
@@ -32,6 +33,10 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Get the access token from service
     const accessToken = this.tokenService.getAuthToken();
+
+    if(!accessToken){
+      this.router.navigate(['/login']).then((_) => false);
+    }
 
     // Get loggedin user id
     const userData = this.userService.getCurrentUser();
