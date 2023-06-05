@@ -16,6 +16,7 @@ import { SpinnerService } from '../../services/spinner.service';
 import { LoggedInUserReq } from '../../interfaces/photos-interface';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
+import Tooltip from 'bootstrap/js/dist/tooltip';
 
 @Component({
   selector: 'app-photos',
@@ -44,6 +45,10 @@ export class PhotosComponent {
   ) {}
 
   ngOnInit(): void {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(tooltipTriggerEl => {
+      return new Tooltip(tooltipTriggerEl);
+    });
     this.getPhotos();
   }
 

@@ -3,22 +3,23 @@
     <a class="navbar-brand">Photos</a>
     <div class="d-flex">
       <!-- Select/Cancel button -->
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="selectActionClicked()"
-        *ngIf="allPhotos.length > 0"
-      >
-        {{ actionBtn }}
-      </button>
+      <div [hidden]="allPhotos.length == 0">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="selectActionClicked()"
+        >
+          {{ actionBtn }}
+        </button>
+      </div>
 
       <!-- Delete button -->
-      <div *ngIf="isSelectionEnabled">
+      <div [hidden]="!isSelectionEnabled">
         <button
           type="button"
           class="btn btn-info"
           aria-label="deletePhoto"
-          title="Delete Photo"
+          title="Delete selected Photos"
           data-bs-toggle="tooltip"
           data-bs-placement="left"
           (click)="deletePhotos()"
@@ -34,6 +35,8 @@
         class="btn btn-secondary"
         title="Logout"
         (click)="logout()"
+        data-bs-toggle="tooltip"
+        data-bs-placement="top"
       >
         <i class="fas fa-light fa-right-from-bracket"></i>
       </button>
