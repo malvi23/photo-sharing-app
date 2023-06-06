@@ -6,7 +6,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 import {
@@ -29,8 +28,6 @@ export class LoginComponent {
     private tokenService: TokenService,
     private userService: UserService,
     private router: Router,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService
   ) {}
 
   login(): void {

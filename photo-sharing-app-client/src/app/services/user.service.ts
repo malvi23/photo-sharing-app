@@ -8,6 +8,7 @@ import { TokenService } from './token.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 
+//todo: implement interface from interfaces
 export interface LoginUser {
   email: string;
   password: string;
