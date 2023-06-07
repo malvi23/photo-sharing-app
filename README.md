@@ -9,11 +9,11 @@
 - Nodemon: npm i -g nodemon
 - Git: https://git-scm.com/downloads
 
-## Steps:
-Git clone repo
 
-Go to 10KC Challenge- Malvi\photo-sharing-app-client run 'npm i'
-Go to 10KC Challenge- Malvi\photo-sharing-app-server run 'npm i'
+## Steps:
+1. Git clone repo
+2. Go to 10KC Challenge- Malvi\photo-sharing-app-client run 'npm i'
+3. Go to 10KC Challenge- Malvi\photo-sharing-app-server run 'npm i'
 
 Create database 'photoSharingDB' using Mongodb Compass
 Create 2 collections: 'photos' and 'users'
