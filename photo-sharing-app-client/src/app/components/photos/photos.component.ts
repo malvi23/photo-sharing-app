@@ -129,24 +129,6 @@ export class PhotosComponent {
     });
   }
 
-  deletePhoto(photoId: string) {
-    if (confirm('Are you sure you want to delete this photo ?')) {
-      this.photosService.deletePhoto(photoId).subscribe({
-        next: (response: any) => {
-          if (response.code) {
-            this.toastr.success(response.message, '', { closeButton: true });
-            this.allPhotos = this.allPhotos.filter(
-              (photo: any) => photo.id !== photoId
-            );
-          }
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
-    }
-  }
-
   deletePhotos() {
     if (this.selectedPhotos.length == 0) {
       this.toastr.warning('Please select any photo(s)', '', {

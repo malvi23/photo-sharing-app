@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PhotosService } from 'src/app/services/photos.service';
@@ -16,16 +16,12 @@ export class AddPhotoComponent {
   });
   selectedImage: any;
   @Output() updateImageDataEvent = new EventEmitter<string>();
+  // @ViewChild('fileInput') fileInputElement!: ElementRef<HTMLInputElement>;
 
   constructor(
     private photoService: PhotosService,
     private toastr: ToastrService
   ) {}
-
-  onImageSelected(event: any) {
-    const file: File = event.target.files[0];
-    this.selectedImage = file;
-  }
 
   ngOnInit() {
     this.addPhotoForm = new FormGroup({
@@ -33,6 +29,16 @@ export class AddPhotoComponent {
       description: new FormControl(''),
       image: new FormControl(null, Validators.required),
     });
+  }
+
+  // setFileInputValue(file: File) {
+  //   this.fileInputElement.nativeElement.value = 'C:\fakepath\retert.jpg';
+  //   this.selectedImage = file;
+  // }
+
+  onImageSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.selectedImage = file;
   }
 
   resetForm(): void {

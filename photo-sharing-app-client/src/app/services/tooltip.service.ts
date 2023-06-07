@@ -14,7 +14,6 @@ export class TooltipService {
   hideTooltips() {
     this.tooltipEles.forEach((tooltipEle) => {
       let tooltip = Tooltip.getInstance(tooltipEle);
-      console.log('tooltip mousout:', tooltip);
       tooltip?.hide()
     });
     this.tooltipEles = [];
