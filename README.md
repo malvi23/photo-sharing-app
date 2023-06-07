@@ -11,9 +11,14 @@
 
 
 ## Steps:
-1. Git clone repo
-2. Go to 10KC Challenge- Malvi\photo-sharing-app-client run 'npm i'
-3. Go to 10KC Challenge- Malvi\photo-sharing-app-server run 'npm i'
+1. Create project folder
+2. Git clone repo - CMD --> Go to Project folder path --> 
+
+```sh
+  git clone https://github.com/malvi23/photo-sharing-app.git
+  ```
+4. Go to 10KC Challenge- Malvi\photo-sharing-app-client run 'npm i'
+5. Go to 10KC Challenge- Malvi\photo-sharing-app-server run 'npm i'
 
 Create database 'photoSharingDB' using Mongodb Compass
 Create 2 collections: 'photos' and 'users'
