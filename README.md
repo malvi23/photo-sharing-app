@@ -1,15 +1,15 @@
 # photo-sharing-app
 
-Installation:
-- npm
-npm install npm@latest -g
-- Nodejs
-- Mongodb:
-- mongodb compass
-- Angular CLI:
+## Installation:
+- npm: npm install npm@latest -g
+- Nodejs: https://nodejs.org/en
+- Mongodb: https://www.mongodb.com/try/download/community
+- mongodb compass: https://www.mongodb.com/try/download/compass
+- Angular CLI: npm install -g @angular/cli
 - Nodemon: npm i -g nodemon
-- Git:
+- Git: https://git-scm.com/downloads
 
+## Steps:
 Git clone repo
 
 Go to 10KC Challenge- Malvi\photo-sharing-app-client run 'npm i'
