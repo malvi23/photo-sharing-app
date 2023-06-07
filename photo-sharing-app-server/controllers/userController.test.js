@@ -1,4 +1,4 @@
-const { registerUser } = require("./userController");
+const { registerUser, loginUser } = require("./userController");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const apiResponse = require("../middleware/apiResponseMiddleware");
@@ -125,4 +125,90 @@ describe("User Controller", () => {
     });
   });
 
+  describe("loginUser", () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+    test("should return bad request if required fields are missing", async () => {
+        const req = { body: { email: "", password: "" } };
+        const res = {
+          status: jest.fn().mockReturnThis(),
+          send: jest.fn(),
+        };
+    
+        await loginUser(req, res);
+    
+        expect(apiResponse.badRequest).toHaveBeenCalledWith(res, {
+          message: "All input is required",
+        });
+      });
+
+      test("should return bad request if credentials are invalid", async () => {
+        const req = { body: { email: "test@example.com", password: "invalidpassword" } };
+        const res = {
+          status: jest.fn().mockReturnThis(),
+          send: jest.fn(),
+        };
+    
+        // Mock User.findOne to return null, indicating no user found
+        User.findOne.mockResolvedValue(null);
+    
+        await loginUser(req, res);
+    
+        expect(apiResponse.badRequest).toHaveBeenCalledWith(res, {
+          message: "Invalid Credentials",
+        });
+      });
+
+      test("should return success if credentials are valid", async () => {
+        const req = { body: { email: "test@example.com", password: "validpassword" } };
+        const res = {
+          set: jest.fn(),
+          status: jest.fn().mockReturnThis(),
+          json: jest.fn(),
+        };
+    
+        const mockUser = {
+          _id: "mocked-id",
+          name: "John",
+          email: "test@example.com",
+          password: "hashedpassword",
+          token: "mocked-token",
+        };
+    
+        // Mock User.findOne to return the mockUser object
+        User.findOne.mockResolvedValue(mockUser);
+    
+        // Mock bcrypt.compare to return true, indicating valid password
+        bcrypt.compare.mockResolvedValue(true);
+    
+        await loginUser(req, res);
+    
+        expect(res.set).toHaveBeenCalledWith("Access-Control-Allow-Origin", "http://localhost:4200");
+        expect(apiResponse.success).toHaveBeenCalledWith(res, {
+          message: "Loggedin successfully !",
+          data: {
+            _id: mockUser._id,
+            name: mockUser.name,
+            email: mockUser.email,
+            token: mockUser.token,
+          },
+        });
+      });
+
+      test("should handle internal server error", async () => {
+        const req = { body: { email: "test@example.com", password: "validpassword" } };
+        const res = {
+          status: jest.fn().mockReturnThis(),
+          send: jest.fn(),
+        };
+    
+        // Mock User.findOne to throw an error
+        User.findOne.mockRejectedValue(new Error("Internal Server Error"));
+    
+        await loginUser(req, res);
+    
+        expect(apiResponse.internalServerError).toHaveBeenCalledWith(res, expect.any(Error));
+      });
+  });
 });
