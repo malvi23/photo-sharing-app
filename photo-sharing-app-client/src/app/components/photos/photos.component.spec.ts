@@ -61,19 +61,12 @@ fdescribe('PhotosComponent', () => {
     component = fixture.componentInstance;
 
     // Set initial values
-    // component.allPhotos = [
-    //   { title: 'Photo1', description: 'Photo1 uploaded', checked: true },
-    //   { title: 'Photo2', description: 'Photo2 uploaded', checked: false },
-    //   { title: 'Photo3', description: 'Photo3 uploaded', checked: true },
-    // ];
-    //set spinnerService.isSpinnerVisible false
     component.allPhotos = [];
     component.isSpinnerVisible = false;
     component.actionBtn = 'Select';
     component.isSelectionEnabled = false;
     component.selectedPhotos = [];
     component.spinnerService.isSpinnerVisible = false;
-    // component.modalRef = '';
 
     // Creating spy object
     mockPhotosServiceSpy = mockPhotosService.getUserPhotos.and.returnValue(
@@ -151,7 +144,7 @@ fdescribe('PhotosComponent', () => {
       },
     ];
     component.selectedPhotos = ['12345', '67890'];
-    component.downloadPhotos()
+    component.downloadPhotos();
     expect(mockToastrService.success).toHaveBeenCalled();
     expect(selectActionClickedSpy).toHaveBeenCalled();
   }));
@@ -167,5 +160,44 @@ fdescribe('PhotosComponent', () => {
       expect(photo.checked).toBeFalse();
     });
     expect(component.selectedPhotos.length).toEqual(0);
+  });
+
+  it('should clear the selection on select button click', () => {
+    const clearSelectionSpy = spyOn(component, 'clearSelection');
+    component.isSelectionEnabled = false;
+    component.selectActionClicked();
+    expect(clearSelectionSpy).toHaveBeenCalled();
+  });
+
+  it('should add photo to selectedPhotos if photo is selected', () => {
+    let photo = {
+      id: '12345',
+      checked: false,
+    };
+    component.selectedPhotos = [];
+    component.onPhotoDivClick(photo);
+    expect(component.selectedPhotos.length).toEqual(1);
+  });
+
+  it('should remove photo from selectedPhotos if user removes the selection', () => {
+    let photo = {
+      id: '12345',
+      checked: true,
+    };
+    component.selectedPhotos = ['12345'];
+    component.onPhotoDivClick(photo);
+    expect(component.selectedPhotos.length).toEqual(0);
+  });
+
+  it('should convert base64 image string to Blob', () => {
+    const base64 =
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+    const expectedBlob = new Blob(
+      [Uint8Array.from(atob(base64), (c) => c.charCodeAt(0))],
+      { type: 'image/png' }
+    );
+    let type = 'image/jpeg';
+    const result = component.base64toBlob(base64, type);
+    expect(result).toEqual(expectedBlob);
   });
 });
