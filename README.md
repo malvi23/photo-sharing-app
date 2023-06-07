@@ -26,7 +26,7 @@
 ```sh
   git clone https://github.com/malvi23/photo-sharing-app.git
   ```
-3. In CMD, go to <Project_Folder>\photo-sharing-app-client and Install client npm dependencies
+3. In cmd, go to <Project_Folder>\photo-sharing-app-client and Install client npm dependencies
 ```sh
   run 'npm i'
   ```
@@ -34,15 +34,16 @@
 ```sh
   <Project_Folder>\photo-sharing-app-server run 'npm i'
   ```
-5. Open Mongodb Compass, Create database 'photoSharingDB'
-6. Create 2 collections: 'photos' and 'users'
-7. Connect the database
-8. Start mongodb server:
+5. Open Mongodb Compass, create database 'photoSharingDB'
+- Create 2 collections: 'photos' and 'users'
+- Connect the database
+
+6. Start mongodb server:
 - Open cmd and go to MongoDB bin folder path e.g. C:\Program Files\MongoDB\Server\<Version 5.0/6.0>\bin
 - create folder "mongo-data" where you want to store mongodb supporting data e.g. "C:\Users\Desktop\<USER_FOLDER_NAME>\"
 - Run mongod.exe --dbpath "C:\Users\<USER_FOLDER_NAME>\mongo-data"
 
-9. Start node server:
+7. In cmd, start node server:
 
 ```sh
   <Project_Folder>\photo-sharing-app-server run 'nodemon server.js'
@@ -51,4 +52,4 @@
 ```sh
   <Project_Folder>\photo-sharing-app-server run 'ng serve'
   ```
-10. Open browser and hit 'localhost:4200'
+8. Open browser and hit 'localhost:4200'
