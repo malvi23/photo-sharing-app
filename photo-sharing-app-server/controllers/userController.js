@@ -13,17 +13,16 @@ createToken = (userId, email) => {
 
 exports.registerUser = async (req, res) => {
   try {
-    // Get user input
+    // User input
     const { name, email, password } = req.body;
 
-    // Validate user input
+    // Validating user input
     if (!(email && password && name)) {
       return apiResponse.badRequest(res, { message: "All input is required" });
       // res.status(400).send("All input is required");
     }
 
-    // check if user already exist
-    // Validate if user exist in our database
+    // checking if user already exist
     const oldUser = await User.findOne({ email });
 
     if (oldUser) {
@@ -35,16 +34,16 @@ exports.registerUser = async (req, res) => {
     //Encrypt user password
     encryptedPassword = await bcrypt.hash(password, 10);
 
-    // Create user in database
+    // Creating user in database
     const user = await User.create({
       name,
-      email: email.toLowerCase(), // sanitize: convert email to lowercase
+      email: email.toLowerCase(),
       password: encryptedPassword,
     });
-
+    // console.log("user:", user);
     // create and save user token
     user.token = createToken(user._id, email);
-    // user.token = token;
+    // console.log("token:",user.token);
 
     // return new user
     return apiResponse.created(res, {
@@ -58,26 +57,26 @@ exports.registerUser = async (req, res) => {
     });
     // res.status(201).json(user);
   } catch (err) {
-    console.log(err);
+    console.log("error in catch block: ",err);
     return apiResponse.internalServerError(res, err);
   }
 };
 
 exports.loginUser = async (req, res) => {
-  // Our login logic starts here
   try {
-    // Get user input
+    // User input
     const { email, password } = req.body;
 
-    // Validate user input
+    // Validating user input
     if (!(email && password)) {
       return apiResponse.badRequest(res, { message: "All input is required" });
     }
-    // Validate if user exist in our database
+    // Validating if user exist in our database
     const user = await User.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      // create and save user token
+
+      // creating and saving user token
       user.token = createToken(user._id, email);
 
       res.set("Access-Control-Allow-Origin", "http://localhost:4200");
