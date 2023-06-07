@@ -20,22 +20,21 @@
 
 
 ## Installation:
-1. Create project folder on your system
+1. Create a project folder on your system
 2. Git clone repo - CMD --> Go to Project folder path --> 
 
 ```sh
   git clone https://github.com/malvi23/photo-sharing-app.git
   ```
-3. 
+3. In CMD, go to <Project_Folder>\photo-sharing-app-client and Install npm dependencies
 ```sh
-  <Project_Folder>\photo-sharing-app-client run 'npm i'
+  run 'npm i'
   ```
-6. 
+4. same for Server dependencies, go to <Project_Folder>\photo-sharing-app-server
 ```sh
   <Project_Folder>\photo-sharing-app-server run 'npm i'
   ```
-
-Create database 'photoSharingDB' using Mongodb Compass
+5.Create database 'photoSharingDB' using Mongodb Compass
 Create 2 collections: 'photos' and 'users'
 Connect the database
 
