@@ -34,7 +34,8 @@
 ```sh
   <Project_Folder>\photo-sharing-app-server run 'npm i'
   ```
-5. Open Mongodb Compass, create database 'photoSharingDB'
+5. Open Mongodb Compass:
+- create database 'photoSharingDB'
 - Create 2 collections: 'photos' and 'users'
 - Connect the database
 
