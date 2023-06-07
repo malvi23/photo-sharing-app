@@ -1,16 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  NgZone,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
-import { TokenService } from '../../services/token.service';
 import { PhotosService } from '../../services/photos.service';
-import { Observable, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from '../../services/spinner.service';
 import { LoggedInUserReq } from '../../interfaces/photos-interface';
@@ -35,11 +25,7 @@ export class PhotosComponent {
 
   constructor(
     private photosService: PhotosService,
-    private tokenService: TokenService,
     private userService: UserService,
-    private router: Router, // private formBuilder: FormBuilder
-    private ngZone: NgZone,
-    private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
     public spinnerService: SpinnerService,
     private modalService: BsModalService
@@ -179,9 +165,5 @@ export class PhotosComponent {
         closeButton: true,
       });
     }
-  }
-
-  logout(): void {
-    this.userService.logout();
   }
 }

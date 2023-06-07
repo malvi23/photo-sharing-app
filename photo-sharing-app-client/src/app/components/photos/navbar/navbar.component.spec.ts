@@ -121,11 +121,4 @@ fdescribe('NavbarComponent', () => {
     expect(mockUserServiceLogoutSpy).toHaveBeenCalled();
   });
 
-  it('should clear the photos selection', () => {
-    component.clearSelection();
-    component.allPhotos.forEach((photo: any) => {
-      expect(photo.checked).toBeFalse();
-    });
-    expect(component.selectedPhotos.length).toEqual(0);
-  });
 });

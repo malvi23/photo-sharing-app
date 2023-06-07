@@ -43,13 +43,13 @@ export class NavbarComponent {
     this.tooltipService.showTooltip(logoutTooltipElement);
   }
 
-  clearSelection() {
-    this.allPhotos.map((photos: any) => {
-      photos.checked = false;
-      return photos;
-    });
-    this.selectedPhotos = [];
-  }
+  // clearSelection() {
+  //   this.allPhotos.map((photos: any) => {
+  //     photos.checked = false;
+  //     return photos;
+  //   });
+  //   this.selectedPhotos = [];
+  // }
 
   selectActionClicked() {
     this.selectActionEvent.emit();

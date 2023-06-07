@@ -120,10 +120,6 @@ fdescribe('LoginComponent', () => {
 
   it('should handle login errors', fakeAsync(() => {
     const error = new Error('Login error');
-    const errorResponse = {
-      code: 500,
-      message: 'Login failed',
-    };
     let mockUserServiceSpy = mockUserService.loginUser.and.returnValue(
       throwError(error)
     );
