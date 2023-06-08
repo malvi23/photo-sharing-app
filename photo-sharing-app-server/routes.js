@@ -15,7 +15,6 @@ router.post(
   photosController.addPhoto
 );
 router.get("/getUserPhotos", auth, photosController.getUserPhotos);
-router.delete("/deletePhoto/:id", auth, photosController.deleteUserPhoto);
 router.post("/deletePhotos", auth, photosController.deleteUserPhotos);
 
 // Export the router

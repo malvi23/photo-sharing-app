@@ -126,9 +126,6 @@ describe("User Controller", () => {
   });
 
   describe("loginUser", () => {
-    beforeEach(() => {
-      jest.clearAllMocks();
-    });
     test("should return bad request if required fields are missing", async () => {
         const req = { body: { email: "", password: "" } };
         const res = {

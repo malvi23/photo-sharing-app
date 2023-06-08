@@ -57,7 +57,6 @@ exports.registerUser = async (req, res) => {
     });
     // res.status(201).json(user);
   } catch (err) {
-    console.log("error in catch block: ",err);
     return apiResponse.internalServerError(res, err);
   }
 };
@@ -92,7 +91,6 @@ exports.loginUser = async (req, res) => {
     }
     return apiResponse.badRequest(res, { message: "Invalid Credentials" });
   } catch (err) {
-    console.log(err);
     return apiResponse.internalServerError(res, err);
   }
 };
