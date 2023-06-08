@@ -1,4 +1,5 @@
 var Photo = require("../models/photos");
+var User = require("../models/user");
 const apiResponse = require("../middleware/apiResponseMiddleware");
 const path = require("path");
 const fs = require("fs");
@@ -27,6 +28,42 @@ exports.addPhoto = (req, res) => {
         return apiResponse.success(res, {
           message: "Photo added successfully !",
           photo: photo,
+        });
+      })
+      .catch((err) => {
+        return apiResponse.internalServerError(res, err);
+      });
+  } catch (error) {
+    return apiResponse.internalServerError(res, error);
+  }
+};
+
+// API endpoint to fetch all photos of a user
+exports.getAllUserPhotos = (req, res) => {
+  try {
+    Photo.find()
+      .sort({ uploadDate: -1 })
+      .then(async (photos) => {
+        const photosWithFiles = await Promise.all(
+          photos.map(async (photo) => {
+            const user = await User.findOne({ _id: photo.userId });
+            const username = user ? user.name : null;
+            const photoPath = path.join(__dirname, "../", photo.imageUrl);
+            const readFileAsync = promisify(fs.readFile);
+            const fileData = await readFileAsync(photoPath);
+            const base64Image = fileData.toString("base64");
+            return {
+              id: photo._id,
+              username:username,
+              title: photo.title,
+              description: photo.description,
+              base64Image: base64Image,
+            };
+          })
+        );
+        return apiResponse.success(res, {
+          message: "Photos fetched successfully!",
+          data: photosWithFiles,
         });
       })
       .catch((err) => {

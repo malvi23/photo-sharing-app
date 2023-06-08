@@ -39,7 +39,9 @@ cache
 /libpeerconnection.log
 testem.log
 /typings
+/uploads
 
 # System files
 .DS_Store
 Thumbs.db
+uploads/

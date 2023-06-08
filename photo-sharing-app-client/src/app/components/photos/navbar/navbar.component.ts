@@ -6,6 +6,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { PhotosService } from 'src/app/services/photos.service';
 import { TooltipService } from 'src/app/services/tooltip.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,18 +26,39 @@ export class NavbarComponent {
   @Output() selectActionEvent = new EventEmitter<string>();
   @ViewChild('logoutTooltipElement') logoutTooltipElement!: ElementRef;
   currentUserName: any = '';
+  isProfileEnabled: boolean = false;
+  allSubscription: any = [];
 
   constructor(
     private userService: UserService,
+    public photosService: PhotosService,
     private tooltipService: TooltipService
   ) {}
 
-  ngOnInit(){
-    this.currentUserName = this.userService.getCurrentUser().name
+  ngOnInit() {
+    this.currentUserName = this.userService.getCurrentUser().name;
+    this.allSubscription.push(
+      this.photosService.isProfileEnabledSubject.subscribe(
+        (isEnabled: boolean) => {
+          this.isProfileEnabled = isEnabled;
+        }
+      )
+    );
+  }
+
+  showProfile() {
+    this.photosService.isProfileEnabledSubject.next(true);
+  }
+
+  showFeed() {
+    this.photosService.isProfileEnabledSubject.next(false);
   }
 
   ngOnDestroy() {
     this.tooltipService.hideTooltips();
+    this.allSubscription.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   showTooltip(logoutTooltipElement: HTMLElement) {

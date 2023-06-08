@@ -5,7 +5,8 @@
     [selectedPhotos]="selectedPhotos"
     [isSelectionEnabled]="isSelectionEnabled"
     [actionBtn]="actionBtn"
-    (deletePhotosEvent)="deletePhotos()" (downloadPhotosEvent)="downloadPhotos()"
+    (deletePhotosEvent)="deletePhotos()"
+    (downloadPhotosEvent)="downloadPhotos()"
     (selectActionEvent)="selectActionClicked()"
   ></app-navbar>
 
@@ -19,6 +20,7 @@
       class="card col-md-3 col-lg-3 col-sm-3 upload-image-card"
       data-bs-toggle="modal"
       data-bs-target="#addPhotoModal"
+      *ngIf="isProfileEnabled"
     >
       <div class="card-body">
         <i class="fa-sharp fa-solid fa-plus"></i>
@@ -34,7 +36,11 @@
         [ngClass]="{
           'selected-image': photo.checked
         }"
-        (click)="isSelectionEnabled ? onPhotoDivClick(photo) : openPhotoDetailsModal(photo)"
+        (click)="
+          isSelectionEnabled
+            ? onPhotoDivClick(photo)
+            : openPhotoDetailsModal(photo)
+        "
       >
         <div class="image-container">
           <img [src]="photo.blobImage" class="card-img-top" alt="..." />
@@ -53,7 +59,13 @@
         <div class="card-body">
           <h5 class="card-title description-container">{{ photo.title }}</h5>
           <p class="card-text description-container">
-            {{ photo.description }} 
+            <ng-container *ngIf="!isProfileEnabled">
+              <span style="font-size: 14px">@ </span>
+              <span style="color: blue; font-weight: 400"
+                >{{ photo.username }}
+              </span></ng-container
+            >
+            <ng-container *ngIf="isProfileEnabled">{{ photo.description }}</ng-container>
           </p>
         </div>
       </div>

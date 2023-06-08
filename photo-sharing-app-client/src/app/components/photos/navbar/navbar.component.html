@@ -1,6 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand"> {{currentUserName | titlecase}}'s PicPantry</a>
+    <a class="navbar-brand" (click)="showFeed()"> {{ currentUserName | titlecase }}'s PicPantry</a>
     <div class="d-flex">
       <!-- Select/Cancel button -->
       <div [hidden]="allPhotos.length == 0">
@@ -23,6 +23,7 @@
           data-bs-toggle="tooltip"
           data-bs-placement="left"
           (click)="deletePhotos()"
+          *ngIf="isProfileEnabled"
         >
           <i class="fas fa-trash trash-icon"></i>
         </button>
@@ -39,19 +40,32 @@
         </button>
       </div>
 
-      <!-- Logout Button -->
-      <button
-        type="button"
-        class="btn btn-secondary"
-        title="Logout"
-        (click)="logout()"
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        #logoutTooltipElement
-        (mouseover)="showTooltip(logoutTooltipElement)"
-      >
-        <i class="fas fa-light fa-right-from-bracket"></i>
-      </button>
+      <!-- User profile dropdown -->
+      <div class="btn-group" dropdown [insideClick]="true">
+        <button
+          dropdownToggle
+          type="button"
+          class="btn btn-secondary dropdown-toggle"
+        >
+          <i class="fa-solid fa-user"></i>
+          <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+          <li role="menuitem">
+            <a
+              class="dropdown-item" (click)="isProfileEnabled?showFeed():showProfile()"
+            >
+             {{isProfileEnabled?'Feed':'Profile'}} </a
+            >
+          </li>
+          <li role="menuitem">
+            <a class="dropdown-item" (click)="logout()"
+              >Logout
+              <i class="fas fa-light fa-right-from-bracket"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

@@ -14,6 +14,7 @@ router.post(
   uploadFile.single("image"),
   photosController.addPhoto
 );
+router.get("/getAllUserPhotos", auth, photosController.getAllUserPhotos);
 router.get("/getUserPhotos", auth, photosController.getUserPhotos);
 router.post("/deletePhotos", auth, photosController.deleteUserPhotos);
 

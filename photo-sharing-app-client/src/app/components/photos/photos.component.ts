@@ -8,6 +8,7 @@ import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { PhotoDetailsComponent } from './photo-details/photo-details.component';
 import Tooltip from 'bootstrap/js/dist/tooltip';
 import { saveAs } from 'file-saver';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-photos',
@@ -22,9 +23,11 @@ export class PhotosComponent {
   isSelectionEnabled: boolean = false;
   selectedPhotos: any[] = [];
   modalRef?: BsModalRef;
+  isProfileEnabled: boolean = false;
+  allSubscription: any = [];
 
   constructor(
-    private photosService: PhotosService,
+    public photosService: PhotosService,
     private userService: UserService,
     private toastr: ToastrService,
     public spinnerService: SpinnerService,
@@ -38,7 +41,21 @@ export class PhotosComponent {
     const tooltipList = tooltipTriggerList.map((tooltipTriggerEl) => {
       return new Tooltip(tooltipTriggerEl);
     });
-    this.getPhotos();
+
+    this.allSubscription.push(
+      this.photosService.isProfileEnabledSubject.subscribe(
+        (isEnabled: boolean) => {
+          this.isProfileEnabled = isEnabled;
+          this.isProfileEnabled ? this.getPhotos() : this.getAllUserPhotos();
+        }
+      )
+    );
+  }
+
+  ngOnDestroy() {
+    this.allSubscription.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   openPhotoDetailsModal(photo: any) {
@@ -94,6 +111,25 @@ export class PhotosComponent {
 
   getBlobUrl(blob: Blob): string {
     return URL.createObjectURL(blob);
+  }
+
+  getAllUserPhotos() {
+    this.photosService.getAllUserPhotos().subscribe({
+      next: (photosRes: LoggedInUserReq) => {
+        if (photosRes.code) {
+          this.allPhotos = photosRes.data.map((image: any) => ({
+            ...image,
+            selected: false,
+            blobImage: URL.createObjectURL(
+              this.base64toBlob(image.base64Image, 'image/jpeg')
+            ),
+          }));
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
   }
 
   getPhotos() {

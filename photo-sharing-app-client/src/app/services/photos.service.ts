@@ -1,23 +1,27 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PhotosService {
   private API_URL = environment.apiURL;
+  isProfileEnabledSubject = new BehaviorSubject<any>(false);
 
   constructor(
     private http: HttpClient,
     private tokenService: TokenService,
     private router: Router
-  ) {}
+  ) {
+  }
+
+  getAllUserPhotos(): Observable<any> {
+    return this.http.get(`${this.API_URL}getAllUserPhotos`);
+  }
 
   getUserPhotos(): Observable<any> {
     return this.http.get(`${this.API_URL}getUserPhotos`);
