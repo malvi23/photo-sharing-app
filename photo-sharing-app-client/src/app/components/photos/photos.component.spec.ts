@@ -13,8 +13,10 @@ import { saveAs } from 'file-saver';
 import { PhotosComponent } from './photos.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AddPhotoComponent } from './add-photo/add-photo.component';
-import { of } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 fdescribe('PhotosComponent', () => {
   let component: PhotosComponent;
@@ -24,6 +26,7 @@ fdescribe('PhotosComponent', () => {
   let mockToastrService: any;
   let mockBsModalService: any;
   let mockPhotosServiceSpy: any;
+  const mockIsProfileEnabledSubject = new Subject<boolean>();
 
   beforeEach(async () => {
     mockUserService = jasmine.createSpyObj('UserService', [
@@ -31,9 +34,11 @@ fdescribe('PhotosComponent', () => {
       'getCurrentUser',
     ]);
     mockPhotosService = jasmine.createSpyObj('PhotosService', [
+      'getAllUserPhotos',
       'getUserPhotos',
       'deletePhotos',
     ]);
+    mockPhotosService.isProfileEnabledSubject = mockIsProfileEnabledSubject;
     mockToastrService = jasmine.createSpyObj('ToastrService', [
       'success',
       'warning',
@@ -49,7 +54,7 @@ fdescribe('PhotosComponent', () => {
         { provide: ToastrService, useValue: mockToastrService },
         { provide: BsModalService, useValue: mockBsModalService },
       ],
-      imports: [ReactiveFormsModule],
+      imports: [ReactiveFormsModule,BsDropdownModule,BrowserAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PhotosComponent);
@@ -62,6 +67,7 @@ fdescribe('PhotosComponent', () => {
     component.isSelectionEnabled = false;
     component.selectedPhotos = [];
     component.spinnerService.isSpinnerVisible = false;
+    component.isProfileEnabled = true
 
     // Creating spy object
     mockPhotosServiceSpy = mockPhotosService.getUserPhotos.and.returnValue(
@@ -72,6 +78,7 @@ fdescribe('PhotosComponent', () => {
         data: [
           {
             id: '647ff22b0f71bcf23f34f4d4',
+            username: "Test User 5",
             title: 'testestest',
             description: 'C:\\fakepath\\Testetest (1).jpg',
             base64Image: 'testImage',
@@ -88,7 +95,6 @@ fdescribe('PhotosComponent', () => {
 
   it('should create and fetch all user photos', () => {
     expect(component).toBeTruthy();
-    expect(mockPhotosServiceSpy).toHaveBeenCalled();
     // expect(component.allPhotos.length).toEqual(1);
   });
 

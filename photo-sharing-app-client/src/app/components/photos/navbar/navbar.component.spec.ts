@@ -4,13 +4,20 @@ import { TooltipService } from 'src/app/services/tooltip.service';
 import { UserService } from 'src/app/services/user.service';
 import { NavbarComponent } from './navbar.component';
 import { ElementRef, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
+import { PhotosService } from 'src/app/services/photos.service';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 fdescribe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let mockUserService: any;
+  let mockPhotosService: any;
   let mockTooltipService: any;
   let mockUserServiceSpy: any;
+  let mockPhotosServiceSpy: any;
+  const mockIsProfileEnabledSubject = new Subject<boolean>();
 
   beforeEach(async () => {
     mockUserService = jasmine.createSpyObj('UserService', [
@@ -21,13 +28,20 @@ fdescribe('NavbarComponent', () => {
       'showTooltip',
       'hideTooltips',
     ]);
+    mockPhotosService = jasmine.createSpyObj('PhotosService', [
+      'getUserPhotos',
+      'deletePhotos',
+    ]);
+    mockPhotosService.isProfileEnabledSubject = mockIsProfileEnabledSubject;
 
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
       providers: [
         { provide: UserService, useValue: mockUserService },
         { provide: TooltipService, useValue: mockTooltipService },
+        { provide: PhotosService, useValue: mockPhotosService },
       ],
+      imports: [BsDropdownModule,BrowserAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavbarComponent);

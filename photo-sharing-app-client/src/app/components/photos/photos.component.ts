@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
 import { PhotosService } from '../../services/photos.service';
 import { ToastrService } from 'ngx-toastr';
 import { SpinnerService } from '../../services/spinner.service';
@@ -28,7 +27,6 @@ export class PhotosComponent {
 
   constructor(
     public photosService: PhotosService,
-    private userService: UserService,
     private toastr: ToastrService,
     public spinnerService: SpinnerService,
     private modalService: BsModalService
