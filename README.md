@@ -1,4 +1,5 @@
-# Photo Sharing App
+# PicPantry
+PicPantry is a photo sharing web application that focuses on managing your photo collections. You can register and use the functionalities like uploading, downloading and removing photos.
 
 ## Prerequisite:
 Below installations are required to run the project locally.
