@@ -123,7 +123,6 @@ export class PhotosComponent {
       return;
     }
     if (confirm('Are you sure you want to delete selected photo(s) ?')) {
-      console.log('this.selectedPhotos:', this.selectedPhotos);
       this.photosService
         .deletePhotos({ imageIds: this.selectedPhotos })
         .subscribe({

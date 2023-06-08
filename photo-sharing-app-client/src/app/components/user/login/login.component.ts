@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   Validators,
@@ -56,7 +55,6 @@ export class LoginComponent {
       },
       error: (error) => {
         console.error(error);
-        //todo: handle error using http interceptor
       },
     });
   }

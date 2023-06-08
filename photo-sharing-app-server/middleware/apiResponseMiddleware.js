@@ -1,4 +1,3 @@
-// todo: add proper api respose format
 // Middleware for handling API responses
 successResponse = (data, message) => {
   return {

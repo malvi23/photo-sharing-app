@@ -38,7 +38,11 @@
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.js"
-            ]
+            ],
+            "allowedCommonJsDependencies": [
+              "file-saver",
+              "bootstrap/js/dist/tooltip"
+           ]
           },
           "configurations": {
             "production": {

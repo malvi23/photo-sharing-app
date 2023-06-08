@@ -1,29 +1,11 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient,
-  HttpErrorResponse,
-  HttpHeaders,
+  HttpClient
 } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-
-//todo: implement interface from interfaces
-export interface LoginUser {
-  email: string;
-  password: string;
-}
-
-export interface RegisterUser {
-  email: string;
-  password: string;
-}
-
-export interface User {
-  email: string;
-  name: string;
-  id: string;
-}
+import { LoggedInUserReq, User } from '../interfaces/user-interface';
 
 @Injectable({
   providedIn: 'root',
@@ -56,11 +38,11 @@ export class UserService {
     return false;
   }
 
-  loginUser(user: LoginUser) {
+  loginUser(user: LoggedInUserReq) {
     return this.http.post(`${this.API_URL}login`, user);
   }
 
-  registerUser(user: RegisterUser) {
+  registerUser(user: LoggedInUserReq) {
     return this.http.post(`${this.API_URL}register`, user);
   }
 

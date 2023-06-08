@@ -24,7 +24,6 @@ export class NavbarComponent {
   @Output() selectActionEvent = new EventEmitter<string>();
   @ViewChild('logoutTooltipElement') logoutTooltipElement!: ElementRef;
   currentUserName: any = '';
-  //todo:handle add photo modal open event
 
   constructor(
     private userService: UserService,

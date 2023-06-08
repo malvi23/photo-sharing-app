@@ -217,8 +217,8 @@ describe("Photos Controller", () => {
         res,
         "Error deleting photo"
       );
-      expect(console.error).toHaveBeenCalledWith(
-        "Error deleting documents:",
+      expect(apiResponse.internalServerError).toHaveBeenCalledWith(
+        res,
         expect.any(Error)
       );
     });

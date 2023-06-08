@@ -1,9 +1,7 @@
 import {
   ComponentFixture,
   ComponentFixtureAutoDetect,
-  TestBed,
-  fakeAsync,
-  tick,
+  TestBed
 } from '@angular/core/testing';
 import { ToastrService } from 'ngx-toastr';
 import { PhotosService } from 'src/app/services/photos.service';
@@ -11,10 +9,7 @@ import { PhotosService } from 'src/app/services/photos.service';
 import { AddPhotoComponent } from './add-photo.component';
 import { DebugElement, EventEmitter } from '@angular/core';
 import {
-  ReactiveFormsModule,
-  FormControl,
-  FormGroup,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { of } from 'rxjs';
 import { By } from '@angular/platform-browser';
@@ -83,8 +78,9 @@ fdescribe('AddPhotoComponent', () => {
     expect(component.addPhotoForm.untouched).toBe(true);
   });
 
-  // //todo: apend the dummy file to 'image' formControl of addPhotoForm
+  // Comment: unable to append dummy image to formController, getting below error. tried few ways but no luck. I will explore more on this part.
   // // Error:  InvalidStateError: Failed to set the 'value' property on 'HTMLInputElement': This input element accepts a filename, which may only be programmatically set to the empty string.
+  // //todo: apend the dummy file to 'image' formControl of addPhotoForm
   // it('should call toastr message and emit updateImageDataEvent event on successful addition of photo', fakeAsync(() => {
   //   // Arrange
   //   component.addPhotoForm.setValue({

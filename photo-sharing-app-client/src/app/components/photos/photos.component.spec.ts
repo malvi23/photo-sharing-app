@@ -7,11 +7,7 @@ import {
 import { UserService } from '../../services/user.service';
 import { PhotosService } from '../../services/photos.service';
 import { ToastrService } from 'ngx-toastr';
-import { SpinnerService } from '../../services/spinner.service';
-import { LoggedInUserReq } from '../../interfaces/photos-interface';
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
-import { PhotoDetailsComponent } from './photo-details/photo-details.component';
-import Tooltip from 'bootstrap/js/dist/tooltip';
 import { saveAs } from 'file-saver';
 
 import { PhotosComponent } from './photos.component';
@@ -26,7 +22,6 @@ fdescribe('PhotosComponent', () => {
   let mockUserService: any;
   let mockPhotosService: any;
   let mockToastrService: any;
-  let mockSpinnerService: any;
   let mockBsModalService: any;
   let mockPhotosServiceSpy: any;
 

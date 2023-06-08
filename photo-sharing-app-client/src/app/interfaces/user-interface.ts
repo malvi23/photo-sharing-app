@@ -1,3 +1,10 @@
+
+export interface User {
+  email: string;
+  name: string;
+  id: string;
+}
+
 interface userData {
   _id: string;
   name: string;

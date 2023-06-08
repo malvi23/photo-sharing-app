@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { TokenService } from 'src/app/services/token.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -18,6 +19,7 @@ export class RegisterComponent {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
+    private toastr: ToastrService,
     private router: Router
   ) {}
   
@@ -42,15 +44,14 @@ export class RegisterComponent {
             email: registeredUserRes.data.email,
             id: registeredUserRes.data._id,
           });
-
+          this.toastr.success(registeredUserRes.message, '', { closeButton: true });
           this.router.navigate(['/photos']).then((_) => false);
         } else {
-          //todo:display error
+          this.toastr.error(registeredUserRes.message, '', { closeButton: true });
         }
       },
       error: (error) => {
         console.error(error);
-        //todo: handle error using http interceptor
       },
     });
   }

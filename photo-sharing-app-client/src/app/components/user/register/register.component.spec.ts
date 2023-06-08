@@ -9,11 +9,10 @@ import { UserService } from 'src/app/services/user.service';
 import { Router, UrlTree } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { MockUserService } from '../../../services/mock-services/MockUser.service';
-import { MockTokenService } from 'src/app/services/mock-services/MockToken.service';
+import { HttpClientModule } from '@angular/common/http';
 
 import { RegisterComponent } from './register.component';
+import { ToastrService } from 'ngx-toastr';
 
 class MockRouter {
   navigate(url: string | UrlTree): Promise<boolean> {
@@ -29,6 +28,7 @@ fdescribe('RegisterComponent', () => {
   let mockUserService: any;
   let mockRouterService: any;
   let mockTokenService: any;
+  let mockToastrService: any;
   // let mockUserServiceSpy: any;
   // let mockRouterServiceSpy: any;
   // let mockTokenService: any;
@@ -57,13 +57,14 @@ fdescribe('RegisterComponent', () => {
         .and.returnValue('testAuthToken'),
       clearAuthToken: jasmine.createSpy('clearAuthToken'),
     };
-
+    mockToastrService = jasmine.createSpyObj('ToastrService', ['success']);
     await TestBed.configureTestingModule({
       declarations: [RegisterComponent],
       providers: [
         { provide: UserService, useValue: mockUserService },
         { provide: TokenService, useValue: mockTokenService },
         { provide: Router, useValue: mockRouterService },
+        { provide: ToastrService, useValue: mockToastrService },
       ],
       imports: [ReactiveFormsModule, HttpClientModule],
     }).compileComponents();
