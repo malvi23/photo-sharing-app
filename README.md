@@ -1,6 +1,8 @@
 # Photo Sharing App
 
-## Installation:
+## Prerequisite:
+Below installations are required to run the project locally.
+
 - npm: 
 ```sh
   npm install npm@latest -g
