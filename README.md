@@ -1,6 +1,6 @@
-# photo-sharing-app
+# Photo Sharing App
 
-## Prerequisites:
+## Installation:
 - npm: 
 ```sh
   npm install npm@latest -g
@@ -19,7 +19,7 @@
 - Git: https://git-scm.com/downloads
 
 
-## Installation:
+## Steps to add project in local system:
 1. Create a project folder on your system
 2. Git clone repo - CMD --> Go to Project folder path --> 
 
@@ -28,11 +28,11 @@
   ```
 3. In cmd, go to <Project_Folder>\photo-sharing-app-client and Install client npm dependencies
 ```sh
-  run 'npm i'
+  npm install
   ```
 4. same for Server dependencies, go to <Project_Folder>\photo-sharing-app-server
 ```sh
-  <Project_Folder>\photo-sharing-app-server run 'npm i'
+  npm install
   ```
 5. Open Mongodb Compass:
 - create database 'photoSharingDB'
@@ -44,13 +44,13 @@
 - create folder "mongo-data" where you want to store mongodb supporting data e.g. "C:\Users\Desktop\<USER_FOLDER_NAME>\"
 - Run mongod.exe --dbpath "C:\Users\<USER_FOLDER_NAME>\mongo-data"
 
-7. In cmd, start node server:
+7. To start node server, go to <Project_Folder>\photo-sharing-app-server in cmd and run:
 
 ```sh
-  <Project_Folder>\photo-sharing-app-server run 'nodemon server.js'
+  nodemon server.js
    ```
-
+8. To start angular project, go to <Project_Folder>\photo-sharing-app-client in cmd and run:
 ```sh
-  <Project_Folder>\photo-sharing-app-server run 'ng serve'
+  ng serve
   ```
-8. Open browser and hit 'localhost:4200'
+9. Open browser and hit 'http://localhost:4200'
