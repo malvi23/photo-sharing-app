@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient
-} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { TokenService } from './token.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';

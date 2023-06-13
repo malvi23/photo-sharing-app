@@ -16,16 +16,19 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private tokenService: TokenService,
     private userService: UserService,
-    private spinnerService: SpinnerService, private router: Router
+    private spinnerService: SpinnerService,
+    private router: Router
   ) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-
-    this.spinnerService.showSpinner()
     
+    if (!request.url.includes('/refreshToken')) {
+      this.spinnerService.showSpinner();
+    }
+
     // Exclude login and register APIs
     if (request.url.includes('/login') || request.url.includes('/register')) {
       return next.handle(request);
@@ -34,7 +37,7 @@ export class AuthInterceptor implements HttpInterceptor {
     // Get the access token from service
     const accessToken = this.tokenService.getAuthToken();
 
-    if(!accessToken){
+    if (!accessToken) {
       this.router.navigate(['/login']).then((_) => false);
     }
 
@@ -62,6 +65,6 @@ export class AuthInterceptor implements HttpInterceptor {
       finalize(() => {
         this.spinnerService.hideSpinner();
       })
-    );;
+    );
   }
 }

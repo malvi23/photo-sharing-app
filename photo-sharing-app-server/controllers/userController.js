@@ -94,3 +94,13 @@ exports.loginUser = async (req, res) => {
     return apiResponse.internalServerError(res, err);
   }
 };
+
+exports.refreshToken = async (req, res) =>{
+  let refreshedToken = createToken(req.user.user_id, req.user.email)
+  return apiResponse.success(res, {
+    message: "Token refreshed successfully !",
+    data: {
+      refreshedToken: refreshedToken
+    },
+  });
+}

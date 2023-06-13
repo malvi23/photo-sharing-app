@@ -8,6 +8,7 @@ const uploadFile = require("./middleware/fileUpload");
 // Define your API routes
 router.post("/register", userController.registerUser);
 router.post("/login", userController.loginUser);
+router.get("/refreshToken", auth, userController.refreshToken);
 router.post(
   "/addPhoto",
   auth,

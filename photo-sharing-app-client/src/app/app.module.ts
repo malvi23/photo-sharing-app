@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlingInterceptor } from './interceptors/error-handling.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    JwtModule.forRoot({
+      config: {},
+    }),
   ],
   providers: [
     {
@@ -36,7 +40,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlingInterceptor,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })
