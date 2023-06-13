@@ -8,7 +8,7 @@
       <input
         type="text"
         class="form-control"
-        id="name"
+        id="user-name"
         formControlName="name"
         required
       />
@@ -18,10 +18,10 @@
       <input
         type="email"
         class="form-control"
-        id="email"
+        id="user-email"
         aria-describedby="email"
         formControlName="email"
-        autocompletetype="off"
+        autocomplete="off" 
         required
       />
     </div>
@@ -30,15 +30,15 @@
       <input
         type="password"
         class="form-control"
-        id="password"
+        id="user-password"
         formControlName="password"
-        autocompletetype="new-password"
+        autocomplete="new-password" 
         required
       />
     </div>
     <div class="form-text mb-3">
       Already registered ? Click here to <span routerLink="/login">Login</span>.
     </div>
-    <button type="submit" class="btn btn-primary">Register</button>
+    <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Register</button>
   </form>
 </div>

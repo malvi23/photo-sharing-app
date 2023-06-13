@@ -13,6 +13,11 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, environment.TOKEN_KEY);
+    // console.log("decoded: ", decoded);
+    /* Check for unauthorized token */
+    if (req.headers["user-id"] && decoded.user_id != req.headers["user-id"]) {
+      return apiResponse.unauthorized(res, { message: "Invalid Token" });
+    }
     req.user = decoded;
   } catch (err) {
     return apiResponse.unauthorized(res, { message: "Invalid Token" });

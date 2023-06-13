@@ -1,6 +1,8 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" (click)="showFeed()"> {{ currentUserName | titlecase }}'s PicPantry</a>
+    <a class="navbar-brand" (click)="showFeed()">
+      {{ currentUserName | titlecase }}'s PicPantry</a
+    >
     <div class="d-flex">
       <!-- Select/Cancel button -->
       <div [hidden]="allPhotos.length == 0">
@@ -41,8 +43,9 @@
       </div>
 
       <!-- User profile dropdown -->
-      <div class="btn-group" dropdown [insideClick]="true">
+      <div class="btn-group" dropdown>
         <button
+          id="button-basic"
           dropdownToggle
           type="button"
           class="btn btn-secondary dropdown-toggle"
@@ -50,13 +53,20 @@
           <i class="fa-solid fa-user"></i>
           <span class="caret"></span>
         </button>
-        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+        <ul
+          id="dropdown-basic"
+          *dropdownMenu
+          class="dropdown-menu dropdown-menu-right"
+          role="menu"
+          aria-labelledby="button-basic"
+        >
           <li role="menuitem">
             <a
-              class="dropdown-item" (click)="isProfileEnabled?showFeed():showProfile()"
+              class="dropdown-item"
+              (click)="isProfileEnabled ? showFeed() : showProfile()"
             >
-             {{isProfileEnabled?'Feed':'Profile'}} </a
-            >
+              {{ isProfileEnabled ? "Feed" : "Profile" }}
+            </a>
           </li>
           <li role="menuitem">
             <a class="dropdown-item" (click)="logout()"

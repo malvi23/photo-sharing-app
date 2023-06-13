@@ -111,18 +111,22 @@ export class PhotosComponent {
     return URL.createObjectURL(blob);
   }
 
+  allPhotosResManipulation(photosRes: LoggedInUserReq) {
+    if (photosRes.code) {
+      this.allPhotos = photosRes.data.map((image: any) => ({
+        ...image,
+        selected: false,
+        blobImage: URL.createObjectURL(
+          this.base64toBlob(image.base64Image, 'image/jpeg')
+        ),
+      }));
+    }
+  }
+
   getAllUserPhotos() {
     this.photosService.getAllUserPhotos().subscribe({
       next: (photosRes: LoggedInUserReq) => {
-        if (photosRes.code) {
-          this.allPhotos = photosRes.data.map((image: any) => ({
-            ...image,
-            selected: false,
-            blobImage: URL.createObjectURL(
-              this.base64toBlob(image.base64Image, 'image/jpeg')
-            ),
-          }));
-        }
+        this.allPhotosResManipulation(photosRes);
       },
       error: (e) => {
         console.log(e);
@@ -133,15 +137,7 @@ export class PhotosComponent {
   getPhotos() {
     this.photosService.getUserPhotos().subscribe({
       next: (photosRes: LoggedInUserReq) => {
-        if (photosRes.code) {
-          this.allPhotos = photosRes.data.map((image: any) => ({
-            ...image,
-            selected: false,
-            blobImage: URL.createObjectURL(
-              this.base64toBlob(image.base64Image, 'image/jpeg')
-            ),
-          }));
-        }
+        this.allPhotosResManipulation(photosRes);
       },
       error: (e) => {
         console.log(e);
