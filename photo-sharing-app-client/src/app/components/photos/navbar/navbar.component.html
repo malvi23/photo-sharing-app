@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" (click)="showFeed()">
-      {{ currentUserName | titlecase }}'s PicPantry</a
+      PicPantry</a
     >
     <div class="d-flex">
       <!-- Select/Cancel button -->
@@ -50,7 +50,7 @@
           type="button"
           class="btn btn-secondary dropdown-toggle"
         >
-          <i class="fa-solid fa-user"></i>
+          <i class="fa-solid fa-user"></i> Hi, {{ currentUserName | titlecase }}
           <span class="caret"></span>
         </button>
         <ul

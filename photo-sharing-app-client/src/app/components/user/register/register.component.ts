@@ -35,10 +35,11 @@ export class RegisterComponent {
     this.userService.registerUser(data).subscribe({
       next: (registeredUserRes: any) => {
         if (registeredUserRes.code) {
+          /* Storing token into cookies */
           let authToken = registeredUserRes.data.token;
           this.tokenService.setAuthToken(authToken);
 
-          //storing user data
+          /* Storing loggedin user data */
           this.userService.setCurrentUser({
             name: registeredUserRes.data.name,
             email: registeredUserRes.data.email,

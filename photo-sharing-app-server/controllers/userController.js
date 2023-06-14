@@ -47,7 +47,7 @@ exports.registerUser = async (req, res) => {
 
     // return new user
     return apiResponse.created(res, {
-      message: "Registreed successfully !",
+      message: "Registered successfully !",
       data: {
         _id: user._id,
         name: user.name,
