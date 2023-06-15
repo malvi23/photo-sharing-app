@@ -13,6 +13,7 @@ const routes: Routes = [
       import('./components/photos/photos.module').then((m) => m.PhotosModule),
     canActivate: [AuthGuard],
   },
+  { path: '**', redirectTo: '/photos' },
 ];
 
 @NgModule({

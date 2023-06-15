@@ -26,6 +26,7 @@ export class AppComponent {
     this.isSpinnerVisible = this.spinnerService.isSpinnerVisible;
   }
 
+  /* This method is to check if user is idle for above mentioned idleTimeoutMinutes */
   startIdleTimer() {
     setInterval(() => {
       const currentTime = new Date();

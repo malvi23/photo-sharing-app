@@ -1,8 +1,6 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" (click)="showFeed()">
-      PicPantry</a
-    >
+    <a class="navbar-brand" (click)="showFeed()"> PicPantry</a>
     <div class="d-flex">
       <!-- Select/Cancel button -->
       <div [hidden]="allPhotos.length == 0">
@@ -17,18 +15,20 @@
 
       <!-- Delete & Download buttons -->
       <div [hidden]="!isSelectionEnabled || allPhotos.length == 0">
-        <button
-          type="button"
-          class="btn btn-info"
-          aria-label="deletePhotos"
-          title="Delete selected Photos"
-          data-bs-toggle="tooltip"
-          data-bs-placement="left"
-          (click)="deletePhotos()"
-          *ngIf="isProfileEnabled"
-        >
-          <i class="fas fa-trash trash-icon"></i>
-        </button>
+        <ng-container *ngIf="isProfileEnabled">
+          <button
+            type="button"
+            class="btn btn-info"
+            aria-label="deletePhotos"
+            title="Delete selected Photos"
+            data-bs-toggle="tooltip"
+            data-bs-placement="left"
+            (click)="deletePhotos()"
+            
+          >
+            <i class="fas fa-trash trash-icon"></i>
+          </button>
+        </ng-container>
         <button
           type="button"
           class="btn btn-info"
